@@ -163,7 +163,7 @@ class MerchantSidebar extends Component {
 												? "nav-link active"
 												: "nav-link"
 										}
-										to="/merchant/GetUserProfile">
+										to="/merchant/profile">
 										<Trans>User Profile</Trans>
 									</Link>
 								</li>
@@ -175,7 +175,7 @@ class MerchantSidebar extends Component {
 												? "nav-link active"
 												: "nav-link"
 										}
-										to="/merchant/reset-password ">
+										to="/merchant/reset-password">
 										<Trans>Change Password</Trans>
 									</Link>
 								</li>

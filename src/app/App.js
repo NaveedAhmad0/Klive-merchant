@@ -81,15 +81,15 @@ function App(props) {
 
 				{location.pathname.includes("login") ||
 				location.pathname.includes("registration") ||
-				location.pathname == "/admin"
+				location.pathname.includes("forgot-password")
 					? null
 					: navbarComponent}
 
 				<div className="container-fluid page-body-wrapper">
 					{location.pathname.includes("login") ||
-					location.pathname.includes("registration")
-						? // location.pathname == "/admin"
-						  null
+					location.pathname.includes("registration") ||
+					location.pathname.includes("forgot-password")
+						? null
 						: merchantSidebarComponent}
 					{/* {isMerchant ? merchantSidebarComponent : null} */}
 
@@ -102,6 +102,7 @@ function App(props) {
 						className={
 							!location.pathname.includes("registration") &&
 							!location.pathname.includes("admin") &&
+							!location.pathname.includes("forgot-password") &&
 							!location.pathname.includes("login")
 								? "main-panel"
 								: "main-2"

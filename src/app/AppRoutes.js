@@ -107,7 +107,7 @@ class AppRoutes extends Component {
 					{/*------------------------- MERCHANT PANEL ROUTES -------------------------- */}
 
 					<Route path="/merchant/dashboard" component={MerchantDashboard} />
-					<Route path="/merchant/profile" component={MerchantProfile} />
+					{/* <Route path="/merchant/profile" component={MerchantProfile} /> */}
 					<Route
 						path="/merchant/reset-password"
 						component={MerchantChangePassword}
@@ -142,10 +142,7 @@ class AppRoutes extends Component {
 						path="/merchant/withdrawalrequest"
 						component={WithdrawalRequest}
 					/>
-					<Route
-						path="/merchant/GetUserProfile"
-						component={GetMerchantProfile}
-					/>
+					<Route path="/merchant/profile" component={MerchantProfile} />
 
 					{/*---------------------------- ERROR PAGE ------------------ */}
 

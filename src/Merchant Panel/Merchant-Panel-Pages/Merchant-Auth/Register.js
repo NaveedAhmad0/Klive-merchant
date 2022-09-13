@@ -142,20 +142,18 @@ function Register() {
 										aria-live="assertive">
 										{errMsg}
 									</p>
-									<h4>New here??</h4>
-									<h6 className="font-weight-light">
-										Signing up is easy. It only takes a few steps
-									</h6>
+									<h4 className="text-primary">Merchant Register</h4>
+
 									<form className="pt-3">
 										<div className="form-group">
-											<FontAwesomeIcon
+											{/* <FontAwesomeIcon
 												icon={faCheck}
 												className={!validName ? "valid" : "hide"}
 											/>
 											<FontAwesomeIcon
 												icon={faTimes}
 												className={!validName || name ? "hide" : "invalid"}
-											/>
+											/> */}
 											<input
 												type="text"
 												id="username"
@@ -187,14 +185,14 @@ function Register() {
 											</p>
 										</div>
 										<div className="form-group">
-											<FontAwesomeIcon
+											{/* <FontAwesomeIcon
 												icon={faCheck}
 												className={validMobile ? "valid" : "hide"}
 											/>
 											<FontAwesomeIcon
 												icon={faTimes}
 												className={validMobile || !mobile ? "hide" : "invalid"}
-											/>
+											/> */}
 											<input
 												type="number"
 												id="mobileNumber"
@@ -219,14 +217,14 @@ function Register() {
 											</p>
 										</div>
 										<div className="form-group">
-											<FontAwesomeIcon
+											{/* <FontAwesomeIcon
 												icon={faCheck}
 												className={validEmail ? "valid" : "hide"}
 											/>
 											<FontAwesomeIcon
 												icon={faTimes}
 												className={validEmail || !email ? "hide" : "invalid"}
-											/>
+											/> */}
 											<input
 												type="email"
 												id="email"
@@ -264,6 +262,22 @@ function Register() {
 												className="form-control form-control-lg"
 												placeholder="Password"
 											/>
+											<p
+												id="uidnote"
+												className={
+													userFocus && name && !validName
+														? "instructions"
+														: "offscreen"
+												}>
+												<FontAwesomeIcon icon={faInfoCircle} />
+												Must contain a capital letter.
+												<br />
+												Must container a small letter.
+												<br />
+												Must container a number
+												<br />
+												Must container a special letter(! @ # $ % ).
+											</p>
 										</div>
 										<div className="form-group">
 											<input

@@ -37,6 +37,7 @@ function AdminLogin() {
 
 			const accessToken = response?.data?.accessToken;
 			localStorage.setItem("token", accessToken);
+			localStorage.setItem("email", email);
 			setEmail("");
 			setPassword("");
 			setSuccess(true);
@@ -67,8 +68,7 @@ function AdminLogin() {
 									alt="logo"
 								/> */}
 							</div>
-							<h4>Hello! let's get started</h4>
-							<h6 className="font-weight-light">Sign in to continue.</h6>
+							<h4 className="text-primary">Merchant Login</h4>
 							<Form className="pt-3">
 								<Form.Group className="d-flex search-field">
 									<Form.Control
@@ -116,14 +116,7 @@ function AdminLogin() {
 										Forgot password?
 									</Link>
 								</div>
-								<div className="mb-2">
-									<button
-										type="button"
-										className="btn btn-block btn-facebook auth-form-btn">
-										<i className="mdi mdi-facebook mr-2"></i>Connect using
-										facebook
-									</button>
-								</div>
+
 								<div className="text-center mt-4 font-weight-light">
 									Don't have an account?{" "}
 									<Link to="/merchant/registration" className="text-primary">
