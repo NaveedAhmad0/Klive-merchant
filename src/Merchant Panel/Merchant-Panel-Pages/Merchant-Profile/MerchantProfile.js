@@ -7,75 +7,78 @@ const UserProfile = () => {
 	const compress = new Compress();
 	//Get profile
 	const [success, setSuccess] = useState(false);
-	const [showData, setShowData] = useState({
-		showemail: "please fill",
-		showuserName: "please fill",
-		showsurName: "please fill",
-		showyearOfBirth: "please fill",
-		showdayOfBirth: "please fill",
-		showmonthOfBirth: "please fill",
-		showpersonType: "please fill",
-		showmobile: 0,
-		showRNFcode: "please fill",
-		showaddress: "please fill",
-		showprovince: "please fill",
-		showdistrict: "please fill",
-		showsubDivision: "please fill",
-		showpincode: "please fill",
-		showinstagram: "please fill",
-		showfacebook: "please fill",
-		showlinkedin: "please fill",
-		showwebsite: "please fill",
-		showother: "please fill",
-		showInitialShop: "please fill",
-		showfirstName: "please fill",
-		showbookbank: "please fill",
-		showLogo: "please fill",
-		showOtherDocument: "please fill",
-		showidCard: "please fill",
-		email: "",
-		merchantName: "",
-		surName: "",
-		mobile: 0,
-		address: "",
-		province: "",
-		district: "",
-		subDivision: "",
-		pincode: 0,
-		personType: "null",
-		InitialShop: "null",
-		firstName: "null",
-		yearOfBirth: "null",
-		monthOfBirth: "null",
-		dayOfBirth: "null",
-		shopType: "null",
-		creditCard: true,
-		weChat: true,
-		livePayment: true,
-		mobileBanking: true,
-		trueWallet: true,
-		shopeePay: true,
-		alone: true,
-		website: "null",
-		facebook: "null",
-		linkedin: "null",
-		instagram: "null",
-		other: "null",
-		company: "null",
-		bank: "null",
-		bankAccount: 0,
-		rnfCode: "null",
-		domestic: "null",
-		inter: "null",
-		rateQrCode: "null",
-		rateBarCode: "null",
-		copyOfId: "null",
-		logo: "null",
-		bankBook: "null",
-		otherDocument: "null",
-	});
+	// const [fields, setFields] = useState({});
+	const [showData, setShowData] = useState([
+		{
+			email: "",
+			merchantName: "",
+			merchantId: "",
+			merchantNameEnglish: "",
+			surName: "",
+			yearOfBirth: "",
+			dayOfBirth: "",
+			monthOfBirth: "",
+			showpersonType: "",
+			mobile: 0,
+			rnfCode: "",
+			address: "",
+			province: "",
+			district: "",
+			subDivision: "",
+			pincode: 0,
+			instagram: "",
+			facebook: "",
+			linkedin: "",
+			website: "",
+			other: "",
+			InitialShop: "",
+			firstName: "",
 
-	// const { email, mobile } = values;
+			personType: "",
+			shopType: "",
+			creditCard: true,
+			weChat: true,
+			livePayment: true,
+			mobileBanking: true,
+			trueWallet: true,
+			shopeePay: true,
+			alone: true,
+
+			company: "",
+			bank: "",
+			bankAccount: 0,
+			domestic: "",
+			inter: "",
+			rateQrCode: "",
+			rateBarCode: "",
+			copyOfId: "",
+			logo: "",
+			bankBook: "",
+			otherDocument: "",
+		},
+	]);
+
+	let fields = showData;
+
+	console.log(
+		"typeof fields",
+		Object.values(fields).every((o) => o !== null)
+	);
+	function handleValidation() {
+		let fields = showData;
+		let formIsValid = false;
+
+		console.log("AKSHDKJHSDKJHAKSHDK", Object.keys(fields).length);
+		//Name
+		if (
+			Object.values(fields).every((o) => o !== null) &&
+			Object.values(fields).every((o) => o !== "")
+		) {
+			formIsValid = true;
+		}
+		return formIsValid;
+	}
+
 	useEffect(() => {
 		// const loginemail = localStorage.getItem("email");
 		axios
@@ -84,40 +87,40 @@ const UserProfile = () => {
 			)
 			.then((res) => {
 				setShowData({
-					showemail: res.data.merchant.email,
-					showmobile: res.data.merchant.mobile,
-					showuserName: res.data.merchant.merchantName,
-					showfirstName: res.data.merchant.firstName,
-					showaddress: res.data.merchant.address,
-					showInitialShop: res.data.merchant.InitialShop,
-					showyearOfBirth: res.data.merchant.yearOfBirth,
-					showdayOfBirth: res.data.merchant.dayOfBirth,
-					showdistrict: res.data.merchant.district,
-					showsurName: res.data.merchant.surName,
-					showprovince: res.data.merchant.province,
-					showYearOfBirth: res.data.merchant.yearOfBirth,
-					showbookbank: res.data.merchant.bankBook,
-					showidCard: res.data.merchant.copyOfId,
-					showLogo: res.data.merchant.logo,
-					showOtherDocument: res.data.merchant.otherDocument,
-					showmonthOfBirth: res.data.merchant.monthOfBirth,
-					showDistrict: res.data.merchant.district,
-					showsubDivision: res.data.merchant.subDivision,
-					showpincode: res.data.merchant.pincode,
-					showinstagram: res.data.merchant.instagram,
-					showfacebook: res.data.merchant.facebook,
-					showlinkedin: res.data.merchant.linkedin,
-					showwebsite: res.data.merchant.website,
-					showother: res.data.merchant.other,
+					email: res.data.merchant.email,
+					mobile: res.data.merchant.mobile,
+					merchantName: res.data.merchant.merchantName,
+					merchantId: res.data.merchant.merchantId,
+					merchantNameEnglish: res.data.merchant.merchantNameEnglish,
+					firstName: res.data.merchant.firstName,
+					address: res.data.merchant.address,
+					InitialShop: res.data.merchant.InitialShop,
+					yearOfBirth: res.data.merchant.yearOfBirth,
+					dayOfBirth: res.data.merchant.dayOfBirth,
+					district: res.data.merchant.district,
+					surName: res.data.merchant.surName,
+					province: res.data.merchant.province,
+					bankBook: res.data.merchant.bankBook,
+					copyOfId: res.data.merchant.copyOfId,
+					logo: res.data.merchant.logo,
+					otherDocument: res.data.merchant.otherDocument,
+					monthOfBirth: res.data.merchant.monthOfBirth,
+					subDivision: res.data.merchant.subDivision,
+					pincode: res.data.merchant.pincode,
+					instagram: res.data.merchant.instagram,
+					facebook: res.data.merchant.facebook,
+					linkedin: res.data.merchant.linkedin,
+					website: res.data.merchant.website,
+					other: res.data.merchant.other,
 					shopType: res.data.merchant.shopType,
-					showbank: res.data.merchant.bank,
-					showrateBARCode: res.data.merchant.rateBarCode,
-					showrateQRCode: res.data.merchant.rateQrCode,
-					showDomestic: res.data.merchant.domestic,
-					showbankAccount: res.data.merchant.bankAccount,
-					showcompany: res.data.merchant.company,
-					showInter: res.data.merchant.inter,
-					showRNFcode: res.data.merchant.rnfCode,
+					bank: res.data.merchant.bank,
+					rateBarCode: res.data.merchant.rateBarCode,
+					rateQrCode: res.data.merchant.rateQrCode,
+					domestic: res.data.merchant.domestic,
+					bankAccount: res.data.merchant.bankAccount,
+					company: res.data.merchant.company,
+					inter: res.data.merchant.inter,
+					rnfCode: res.data.merchant.rnfCode,
 					personType: res.data.merchant.personType,
 					creditCard: res.data.merchant.creditCard,
 					weChat: res.data.merchant.weChat,
@@ -136,76 +139,78 @@ const UserProfile = () => {
 
 	async function onSubmit(event) {
 		event.preventDefault();
+		if (handleValidation()) {
+			try {
+				const response = await axios.patch(
+					`https://backend.klivepay.com/api/merchant/update-profile?email=${loginemail}`,
+					JSON.stringify({
+						merchantId: showData.merchantId,
+						merchantNameEnglish: showData.merchantNameEnglish,
+						merchantName: showData.merchantName,
+						personType: showData.personType,
+						InitialShop: showData.InitialShop,
+						firstName: showData.firstName,
+						surName: showData.surName,
+						yearOfBirth: showData.yearOfBirth,
+						monthOfBirth: showData.monthOfBirth,
+						dayOfBirth: showData.dayOfBirth,
+						mobile: parseInt(showData.mobile),
+						address: showData.address,
+						province: showData.province,
+						district: showData.district,
+						subDivision: showData.subDivision,
+						pincode: parseInt(showData.pincode),
+						shopType: showData.shopType,
+						creditCard: showData.creditCard,
 
-		try {
-			const response = await axios.patch(
-				`https://backend.klivepay.com/api/merchant/update-profile?email=${loginemail}`,
-				JSON.stringify({
-					merchantName: showData.showuserName,
-					merchantId: 12,
-					merchantNameEnglish: "Merchant",
-					personType: showData.personType,
-					InitialShop: showData.showInitialShop,
-					firstName: showData.showfirstName,
-					surName: showData.showsurName,
-					yearOfBirth: showData.showyearOfBirth,
-					monthOfBirth: showData.showmonthOfBirth,
-					dayOfBirth: showData.showdayOfBirth,
-					mobile: parseInt(showData.showmobile),
-					address: showData.showaddress,
-					province: showData.showprovince,
-					district: showData.showdistrict,
-					subDivision: showData.showsubDivision,
-					pincode: parseInt(showData.showpincode),
-					shopType: showData.shopType,
-					creditCard: showData.creditCard,
-
-					copyOfId: showData.showidCard,
-					logo: showData.showLogo,
-					bankBook: showData.showbookbank,
-					otherDocument: showData.showOtherDocument,
-					weChat: showData.weChat,
-					livePayment: showData.livePayment,
-					mobileBanking: showData.mobileBanking,
-					trueWallet: showData.trueWallet,
-					shopeePay: showData.shopeePay,
-					alone: showData.alone,
-					website: showData.showwebsite,
-					facebook: showData.showfacebook,
-					linkedin: showData.showlinkedin,
-					instagram: showData.showinstagram,
-					other: showData.showother,
-					company: showData.showcompany,
-					bank: showData.showbank,
-					bankAccount: parseInt(showData.showbankAccount),
-					rnfCode: showData.showRNFcode,
-					domestic: showData.showDomestic,
-					inter: showData.showInter,
-					rateQrCode: showData.showrateQRCode,
-					rateBarCode: showData.showrateBARCode,
-				}),
-				{
-					headers: { "Content-Type": "application/json" },
-					// withCredentials: true,
-				}
-			);
-			setSuccess(true);
-
-			console.log(JSON.stringify(response?.data));
-			// setSuccess(true);
-		} catch (err) {
-			console.log(err);
+						copyOfId: showData.copyOfId,
+						logo: showData.logo,
+						bankBook: showData.bankBook,
+						otherDocument: showData.otherDocument,
+						weChat: showData.weChat,
+						livePayment: showData.livePayment,
+						mobileBanking: showData.mobileBanking,
+						trueWallet: showData.trueWallet,
+						shopeePay: showData.shopeePay,
+						alone: showData.alone,
+						website: showData.website,
+						facebook: showData.facebook,
+						linkedin: showData.linkedin,
+						instagram: showData.instagram,
+						other: showData.other,
+						company: showData.company,
+						bank: showData.bank,
+						bankAccount: parseInt(showData.bankAccount),
+						rnfCode: showData.rnfCode,
+						domestic: showData.domestic,
+						inter: showData.inter,
+						rateQrCode: showData.rateQrCode,
+						rateBarCode: showData.rateBarCode,
+					}),
+					{
+						headers: { "Content-Type": "application/json" },
+						// withCredentials: true,
+					}
+				);
+				setSuccess(true);
+				console.log(JSON.stringify(response?.data));
+			} catch (err) {
+				console.log(err);
+			}
+			alert("Form submitted");
+		} else {
+			alert("Form has errors.");
 		}
 	}
-	useEffect(() => {
-		if (success) {
-			alert(" Merchant Profile changed Succesfully!");
-		}
-	}, [success]);
+	// useEffect(() => {
+	// 	if (success) {
+	// 		alert("Profile changed Succesfully!");
+	// 	}
+	// }, [success]);
 	console.log(showData.shopType);
 	return (
 		<div className="col-12 grid-margin">
-			<h4 className="card-title">Merchant Personal Information</h4>
+			<h4 className="card-title">user Personal Information</h4>
 
 			<div className="card">
 				<div className={`card-body ${styles.usercardbody}`}>
@@ -216,11 +221,26 @@ const UserProfile = () => {
 								<div className="form-group">
 									<label className={styles.userLabel}>merchant ID</label>
 									<input
-										type="email"
-										disabled
+										type="text"
+										name="merchantId"
+										onChange={(e) => {
+											setShowData({
+												...showData,
+												merchantId: e.target.value,
+											});
+										}}
+										id="validationCustom01"
+										required
+										value={showData.merchantId}
 										className={`form-control ${styles.userInputs}`}
-										placeholder={"123456"}
 									/>
+
+									{fields["merchantId"] == null ||
+									fields["merchantId"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 								<div className="form-group">
 									<label for="validationDefault01" className={styles.userLabel}>
@@ -228,20 +248,26 @@ const UserProfile = () => {
 									</label>
 									<input
 										type="text"
-										name="showuserName"
+										name="merchantName"
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showuserName: e.target.value,
+												merchantName: e.target.value,
 											});
 										}}
 										id="validationCustom01"
 										required
-										value={showData.showuserName}
+										value={showData.merchantName}
 										className={`form-control ${styles.userInputs}`}
 										placeholder="name"
 									/>
-									<div class="valid-feedback">Looks good!</div>
+
+									{fields["merchantName"] == null ||
+									fields["merchantName"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 							</form>
 						</div>
@@ -255,10 +281,22 @@ const UserProfile = () => {
 									</label>
 									<input
 										type="text"
-										disabled
 										className={`form-control ${styles.userInputs}`}
-										placeholder="merchant name english"
+										onChange={(e) => {
+											setShowData({
+												...showData,
+												merchantNameEnglish: e.target.value,
+											});
+										}}
+										value={showData.merchantNameEnglish}
 									/>
+
+									{fields["merchantNameEnglish"] == null ||
+									fields["merchantNameEnglish"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 								<div className="form-group">
 									<label className={styles.userLabel}>Email address</label>
@@ -268,55 +306,73 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showemail: e.target.value,
+												email: e.target.value,
 											});
 										}}
-										value={showData.showemail}
+										value={showData.email}
 									/>
+
+									{fields["email"] == null || fields["email"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 							</form>
 						</div>
 					</div>
 
-					<label className={styles.userLabel}> person type</label>
-					<div style={{ display: "flex" }}>
-						<div class="form-check form-check-inline">
-							<input
-								type="radio"
-								name="individual"
-								onChange={(e) => {
-									if (e.target.checked === true) {
-										setShowData({
-											...showData,
-											personType: "individual",
-										});
-									}
-								}}
-								checked={showData.personType === "individual" ? true : false}
-								class="form-check-input"
-								value="individual"
-							/>
-							<label className={styles.userLabel}>individual</label>
+					<div>
+						<label className={styles.userLabel}> person type</label>
+
+						<div style={{ display: "flex" }}>
+							<div class="form-check form-check-inline">
+								<input
+									type="radio"
+									name="individual"
+									onChange={(e) => {
+										if (e.target.checked === true) {
+											setShowData({
+												...showData,
+												personType: "individual",
+											});
+										}
+									}}
+									checked={showData.personType === "individual" ? true : false}
+									class="form-check-input"
+									value="individual"
+								/>
+								<label className={styles.userLabel}>individual</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input
+									class="form-check-input"
+									type="radio"
+									name="person"
+									onChange={(e) => {
+										if (e.target.checked === true) {
+											setShowData({
+												...showData,
+												personType: "corporate",
+											});
+										}
+									}}
+									checked={showData.personType === "corporate" ? true : false}
+									value="corporate"
+								/>
+								<label className={styles.userLabel}>corporate</label>
+							</div>
+							<br />
 						</div>
-						<div class="form-check form-check-inline">
-							<input
-								class="form-check-input"
-								type="radio"
-								name="person"
-								onChange={(e) => {
-									if (e.target.checked === true) {
-										setShowData({
-											...showData,
-											personType: "corporate",
-										});
-									}
-								}}
-								checked={showData.personType === "corporate" ? true : false}
-								value="corporate"
-							/>
-							<label className={styles.userLabel}>corporate</label>
-						</div>
+						{/* <br /> */}
+						{fields["personType"] == null || fields["personType"] == "" ? (
+							<span className="text-danger">Field can't be empty</span>
+						) : (
+							""
+						)}
 					</div>
+					<br />
+
 					<div class="form-group">
 						<label className={styles.userLabel}>
 							Intial shop(up to 10 characters)
@@ -327,13 +383,19 @@ const UserProfile = () => {
 							onChange={(e) => {
 								setShowData({
 									...showData,
-									showInitialShop: e.target.value,
+									InitialShop: e.target.value,
 								});
 							}}
-							value={showData.showInitialShop}
+							value={showData.InitialShop}
 							className={`form-control ${styles.userInputs}`}
-							// placeholder={showInitialShop}
+							// placeholder={InitialShop}
 						/>
+
+						{fields["InitialShop"] == null || fields["InitialShop"] == "" ? (
+							<span className="text-danger">Field can't be empty</span>
+						) : (
+							""
+						)}
 					</div>
 
 					<div className="row">
@@ -342,17 +404,23 @@ const UserProfile = () => {
 								<label className={styles.userLabel}>first name</label>
 								<input
 									type="year"
-									name="showfirstName"
+									name="firstName"
 									onChange={(e) => {
 										setShowData({
 											...showData,
-											showfirstName: e.target.value,
+											firstName: e.target.value,
 										});
 									}}
-									value={showData.showfirstName}
+									value={showData.firstName}
 									className={`form-control ${styles.userInputs}`}
-									// placeholder={showfirstName}
+									// placeholder={firstName}
 								/>
+
+								{fields["firstName"] == null || fields["firstName"] == "" ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
 							</div>
 						</div>
 
@@ -364,13 +432,19 @@ const UserProfile = () => {
 									onChange={(e) => {
 										setShowData({
 											...showData,
-											showsurName: e.target.value,
+											surName: e.target.value,
 										});
 									}}
-									value={showData.showsurName}
+									value={showData.surName}
 									className={`form-control ${styles.userInputs}`}
-									// placeholder={showsurName}
+									// placeholder={surName}
 								/>
+
+								{fields["surName"] == null || fields["surName"] == "" ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
 							</div>
 						</div>
 					</div>
@@ -385,13 +459,20 @@ const UserProfile = () => {
 									onChange={(e) => {
 										setShowData({
 											...showData,
-											showyearOfBirth: e.target.value,
+											yearOfBirth: e.target.value,
 										});
 									}}
-									value={showData.showyearOfBirth}
+									value={showData.yearOfBirth}
 									className={`form-control ${styles.userInputs}`}
-									// placeholder={showyearOfBirth}
+									// placeholder={yearOfBirth}
 								/>
+
+								{fields["yearOfBirth"] == null ||
+								fields["yearOfBirth"] == "" ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
 							</div>
 						</div>
 
@@ -404,13 +485,20 @@ const UserProfile = () => {
 									onChange={(e) => {
 										setShowData({
 											...showData,
-											showmonthOfBirth: e.target.value,
+											monthOfBirth: e.target.value,
 										});
 									}}
-									value={showData.showmonthOfBirth}
+									value={showData.monthOfBirth}
 									className={`form-control ${styles.userInputs}`}
-									// placeholder={showmonthOfBirth}
+									// placeholder={monthOfBirth}
 								/>
+
+								{fields["monthOfBirth"] == null ||
+								fields["monthOfBirth"] == "" ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
 							</div>
 						</div>
 
@@ -423,13 +511,19 @@ const UserProfile = () => {
 									onChange={(e) => {
 										setShowData({
 											...showData,
-											showdayOfBirth: e.target.value,
+											dayOfBirth: e.target.value,
 										});
 									}}
-									value={showData.showdayOfBirth}
+									value={showData.dayOfBirth}
 									className={`form-control ${styles.userInputs}`}
-									// placeholder={showdayOfBirth}
+									// placeholder={dayOfBirth}
 								/>
+
+								{fields["dayOfBirth"] == null || fields["dayOfBirth"] == "" ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
 							</div>
 						</div>
 					</div>
@@ -441,13 +535,19 @@ const UserProfile = () => {
 							onChange={(e) => {
 								setShowData({
 									...showData,
-									showmobile: parseInt(e.target.value),
+									mobile: parseInt(e.target.value),
 								});
 							}}
-							value={showData.showmobile}
+							value={showData.mobile}
 							className={`form-control ${styles.userInputs}`}
-							// placeholder={showmobile}
+							// placeholder={mobile}
 						/>
+
+						{fields["mobile"] == null || fields["mobile"] == "" ? (
+							<span className="text-danger">Field can't be empty</span>
+						) : (
+							""
+						)}
 					</div>
 
 					<div class="form-group">
@@ -457,13 +557,19 @@ const UserProfile = () => {
 							onChange={(e) => {
 								setShowData({
 									...showData,
-									showaddress: e.target.value,
+									address: e.target.value,
 								});
 							}}
-							value={showData.showaddress}
+							value={showData.address}
 							className={`form-control ${styles.userInputs}`}
-							// placeholder={showaddress}
+							// placeholder={address}
 						/>
+
+						{fields["address"] == null || fields["address"] == "" ? (
+							<span className="text-danger">Field can't be empty</span>
+						) : (
+							""
+						)}
 					</div>
 
 					<div className="row mt-5">
@@ -476,13 +582,19 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showprovince: e.target.value,
+												province: e.target.value,
 											});
 										}}
-										value={showData.showprovince}
+										value={showData.province}
 										className={`form-control ${styles.userInputs}`}
-										// placeholder={showprovince}
+										// placeholder={province}
 									/>
+
+									{fields["province"] == null || fields["province"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 								<div className="form-group">
 									<label className={styles.userLabel}>sub division</label>
@@ -491,13 +603,20 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showsubDivision: e.target.value,
+												subDivision: e.target.value,
 											});
 										}}
-										value={showData.showsubDivision}
+										value={showData.subDivision}
 										className={`form-control ${styles.userInputs}`}
-										// placeholder={showsubDivision}
+										// placeholder={subDivision}
 									/>
+
+									{fields["subDivision"] == null ||
+									fields["subDivision"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 							</form>
 						</div>
@@ -511,13 +630,19 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showdistrict: e.target.value,
+												district: e.target.value,
 											});
 										}}
-										value={showData.showdistrict}
+										value={showData.district}
 										className={`form-control ${styles.userInputs}`}
-										// placeholder={showdistrict}
+										// placeholder={district}
 									/>
+
+									{fields["district"] == null || fields["district"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 								<div className="form-group">
 									<label className={styles.userLabel}>pincode</label>
@@ -526,13 +651,19 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showpincode: e.target.value,
+												pincode: e.target.value,
 											});
 										}}
-										value={showData.showpincode}
+										value={showData.pincode}
 										className={`form-control ${styles.userInputs}`}
 										placeholder="123456"
 									/>
+
+									{fields["pincode"] == null || fields["pincode"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 							</form>
 						</div>
@@ -578,6 +709,13 @@ const UserProfile = () => {
 									/>
 									<label className={styles.userLabel}>website</label>
 								</div>
+
+								<br />
+								{fields["shopType"] == null ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
 							</div>
 
 							<label className={styles.userLabel}>live payment</label>
@@ -620,6 +758,13 @@ const UserProfile = () => {
 									/>
 									<label className={styles.userLabel}>no</label>
 								</div>
+
+								<br />
+								{fields["livePayment"] == null ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
 							</div>
 
 							<label className={styles.userLabel}>shopee pay</label>
@@ -662,6 +807,13 @@ const UserProfile = () => {
 									/>
 									<label className={styles.userLabel}>no</label>
 								</div>
+
+								<br />
+								{fields["shopeePay"] == null ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
 							</div>
 						</div>
 						<div className="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
@@ -705,6 +857,13 @@ const UserProfile = () => {
 									/>
 									<label className={styles.userLabel}>no</label>
 								</div>
+
+								<br />
+								{fields["creditCard"] == null ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
 							</div>
 
 							<label className={styles.userLabel}>mobile banking</label>
@@ -747,6 +906,13 @@ const UserProfile = () => {
 									/>
 									<label className={styles.userLabel}>no</label>
 								</div>
+
+								<br />
+								{fields["mobileBanking"] == null ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
 							</div>
 
 							<label className={styles.userLabel}>alone</label>
@@ -790,6 +956,13 @@ const UserProfile = () => {
 									<label className={styles.userLabel}>no</label>
 								</div>
 							</div>
+
+							<br />
+							{fields["alone"] == null ? (
+								<span className="text-danger">Field can't be empty</span>
+							) : (
+								""
+							)}
 						</div>
 						<div className="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
 							<label className={styles.userLabel}>we chat payment</label>
@@ -832,6 +1005,13 @@ const UserProfile = () => {
 									/>
 									<label className={styles.userLabel}>no</label>
 								</div>
+
+								<br />
+								{fields["weChat"] == null ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
 							</div>
 
 							<label className={styles.userLabel}>true wallet</label>
@@ -874,6 +1054,12 @@ const UserProfile = () => {
 									/>
 									<label className={styles.userLabel}>no</label>
 								</div>
+								<br />
+								{fields["trueWallet"] == null ? (
+									<span className="text-danger">Field can't be empty</span>
+								) : (
+									""
+								)}
 							</div>
 						</div>
 					</div>
@@ -889,13 +1075,19 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showwebsite: e.target.value,
+												website: e.target.value,
 											});
 										}}
-										value={showData.showwebsite}
+										value={showData.website}
 										className={`form-control ${styles.userInputs}`}
-										// placeholder={showwebsite}
+										// placeholder={website}
 									/>
+
+									{fields["website"] == null || fields["website"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 								<div className="form-group">
 									<label className={styles.userLabel}>linked in</label>
@@ -905,13 +1097,19 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showlinkedin: e.target.value,
+												linkedin: e.target.value,
 											});
 										}}
-										value={showData.showlinkedin}
+										value={showData.linkedin}
 										className={`form-control ${styles.userInputs}`}
-										// placeholder={showlinkedin}
+										// placeholder={linkedin}
 									/>
+
+									{fields["linkedin"] == null || fields["linkedin"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 
 								<div className="form-group">
@@ -922,13 +1120,19 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showother: e.target.value,
+												other: e.target.value,
 											});
 										}}
-										value={showData.showother}
+										value={showData.other}
 										className={`form-control ${styles.userInputs}`}
-										// placeholder={showother}
+										// placeholder={other}
 									/>
+
+									{fields["other"] == null || fields["other"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 							</form>
 						</div>
@@ -943,13 +1147,19 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showfacebook: e.target.value,
+												facebook: e.target.value,
 											});
 										}}
-										value={showData.showfacebook}
+										value={showData.facebook}
 										className={`form-control ${styles.userInputs}`}
-										// placeholder={showfacebook}
+										// placeholder={facebook}
 									/>
+
+									{fields["facebook"] == null || fields["facebook"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 								<div className="form-group">
 									<label className={styles.userLabel}>instagram</label>
@@ -959,13 +1169,19 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showinstagram: e.target.value,
+												instagram: e.target.value,
 											});
 										}}
-										value={showData.showinstagram}
+										value={showData.instagram}
 										className={`form-control ${styles.userInputs}`}
-										// placeholder={showinstagram}
+										// placeholder={instagram}
 									/>
+
+									{fields["instagram"] == null || fields["instagram"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 							</form>
 						</div>
@@ -992,12 +1208,18 @@ const UserProfile = () => {
 													rotate: false,
 												})
 												.then((data) => {
-													showData.showidCard = data[0].prefix + data[0].data;
+													showData.copyOfId = data[0].prefix + data[0].data;
 												});
 										}}
 										className={`form-control ${styles.userInputs}`}
 										placeholder="file"
 									/>
+
+									{fields["copyOfId"] == null || fields["copyOfId"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 
 								<div className="form-group">
@@ -1016,12 +1238,18 @@ const UserProfile = () => {
 													rotate: false,
 												})
 												.then((data) => {
-													showData.showbookbank = data[0].prefix + data[0].data;
+													showData.bankBook = data[0].prefix + data[0].data;
 												});
 										}}
 										className={`form-control ${styles.userInputs}`}
 										placeholder="file"
 									/>
+
+									{fields["bankBook"] == null || fields["bankBook"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 
 								<div className="form-group">
@@ -1031,13 +1259,19 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showcompany: e.target.value,
+												company: e.target.value,
 											});
 										}}
-										value={showData.showcompany}
+										value={showData.company}
 										className={`form-control ${styles.userInputs}`}
 										placeholder="company"
 									/>
+
+									{fields["company"] == null || fields["company"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 
 								<div className="form-group">
@@ -1047,13 +1281,20 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showbankAccount: e.target.value,
+												bankAccount: e.target.value,
 											});
 										}}
-										value={showData.showbankAccount}
+										value={showData.bankAccount}
 										className={`form-control ${styles.userInputs}`}
 										placeholder="bank account"
 									/>
+
+									{fields["bankAccount"] == null ||
+									fields["bankAccount"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 								<div className="form-group">
 									<label className={styles.userLabel}>domestic</label>
@@ -1062,13 +1303,19 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showDomestic: e.target.value,
+												domestic: e.target.value,
 											});
 										}}
-										value={showData.showDomestic}
+										value={showData.domestic}
 										className={`form-control ${styles.userInputs}`}
 										placeholder="Domestic"
 									/>
+
+									{fields["domestic"] == null || fields["domestic"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 
 								<div className="form-group">
@@ -1078,13 +1325,20 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showrateQRCode: e.target.value,
+												rateQrCode: e.target.value,
 											});
 										}}
-										value={showData.showrateQRCode}
+										value={showData.rateQrCode}
 										className={`form-control ${styles.userInputs}`}
 										placeholder="QR code"
 									/>
+
+									{fields["rateQrCode"] == null ||
+									fields["rateQrCode"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 							</form>
 						</div>
@@ -1107,13 +1361,19 @@ const UserProfile = () => {
 													rotate: false,
 												})
 												.then((data) => {
-													showData.showLogo = data[0].prefix + data[0].data;
+													showData.logo = data[0].prefix + data[0].data;
 												});
 										}}
-										// value={showData.showLogo}
+										// value={showData.logo}
 										className={`form-control ${styles.userInputs}`}
 										placeholder="file"
 									/>
+
+									{fields["logo"] == null || fields["logo"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 								<div className="form-group">
 									<label className={styles.userLabel}>other document</label>
@@ -1131,14 +1391,21 @@ const UserProfile = () => {
 													rotate: false,
 												})
 												.then((data) => {
-													showData.showOtherDocument =
+													showData.otherDocument =
 														data[0].prefix + data[0].data;
 												});
 										}}
-										// value={showData.showOtherDocument}
+										// value={showData.otherDocument}
 										className={`form-control ${styles.userInputs}`}
 										placeholder="file"
 									/>
+
+									{fields["otherDocument"] == null ||
+									fields["otherDocument"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 
 								<div className="form-group">
@@ -1148,13 +1415,18 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showbank: e.target.value,
+												bank: e.target.value,
 											});
 										}}
-										value={showData.showbank}
+										value={showData.bank}
 										className={`form-control ${styles.userInputs}`}
 										placeholder="bank"
 									/>
+									{fields["bank"] == null || fields["bank"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 								<div className="form-group">
 									<label className={styles.userLabel}>rnf code</label>
@@ -1163,13 +1435,18 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showRNFcode: e.target.value,
+												rnfCode: e.target.value,
 											});
 										}}
-										value={showData.showRNFcode}
+										value={showData.rnfCode}
 										className={`form-control ${styles.userInputs}`}
 										placeholder="Rnf Code"
 									/>
+									{fields["rnfCode"] == null || fields["rnfCode"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 
 								<div className="form-group">
@@ -1179,13 +1456,19 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showInter: e.target.value,
+												inter: e.target.value,
 											});
 										}}
-										value={showData.showInter}
+										value={showData.inter}
 										className={`form-control ${styles.userInputs}`}
 										placeholder="Inter"
 									/>
+
+									{fields["inter"] == null || fields["inter"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 								<div className="form-group">
 									<label className={styles.userLabel}>rate of bar code</label>
@@ -1194,20 +1477,34 @@ const UserProfile = () => {
 										onChange={(e) => {
 											setShowData({
 												...showData,
-												showrateBARCode: e.target.value,
+												rateBarCode: e.target.value,
 											});
 										}}
-										value={showData.showrateBARCode}
+										value={showData.rateBarCode}
 										className={`form-control ${styles.userInputs}`}
 										placeholder="Bar code"
 									/>
+
+									{fields["rateBarCode"] == null ||
+									fields["rateBarCode"] == "" ? (
+										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
 								</div>
 							</form>
 						</div>
 					</div>
 					{/* <button type="button" className={`btn ${styles.userBtn}`}>Finish</button> */}
+
 					<button
 						type="button"
+						disabled={
+							Object.values(fields).every((o) => o === null) &&
+							Object.values(fields).every((o) => o === "")
+								? true
+								: false
+						}
 						onClick={(event) => onSubmit(event)}
 						className={`btn ${styles.userBtn}`}>
 						Finish
