@@ -23,7 +23,7 @@ function Register() {
 	const [validName, setValidName] = useState(false);
 	const [userFocus, setUserFocus] = useState(false);
 
-	const [mobile, setMobile] = useState(0);
+	const [mobile, setMobile] = useState({});
 	const [validMobile, setValidMobile] = useState(false);
 	const [mobileFocus, setMobileFocus] = useState(false);
 
@@ -146,14 +146,22 @@ function Register() {
 
 									<form className="pt-3">
 										<div className="form-group">
-											{/* <FontAwesomeIcon
-												icon={faCheck}
-												className={!validName ? "valid" : "hide"}
-											/>
-											<FontAwesomeIcon
-												icon={faTimes}
-												className={!validName || name ? "hide" : "invalid"}
-											/> */}
+											{validName ? (
+												<FontAwesomeIcon
+													icon={faCheck}
+													className={"text-success"}
+												/>
+											) : (
+												""
+											)}
+											{!validName ? (
+												<FontAwesomeIcon
+													icon={faTimes}
+													className={"text-danger"}
+												/>
+											) : (
+												""
+											)}
 											<input
 												type="text"
 												id="username"
@@ -169,35 +177,48 @@ function Register() {
 												placeholder="Username"
 												className="form-control form-control-lg"
 											/>
-											<p
-												id="uidnote"
-												className={
-													userFocus && name && !validName
-														? "instructions"
-														: "offscreen"
-												}>
-												<FontAwesomeIcon icon={faInfoCircle} />
-												4 to 24 characters.
-												<br />
-												Must begin with a letter.
-												<br />
-												Letters, numbers, underscores, hyphens allowed.
-											</p>
+											{!validName ? (
+												<p
+													id="uidnote"
+													className={
+														userFocus && name && !validName
+															? "instructions"
+															: "offscreen"
+													}>
+													<FontAwesomeIcon icon={faInfoCircle} />
+													4 to 24 characters.
+													<br />
+													Must begin with a letter.
+													<br />
+													Letters, numbers, underscores, hyphens allowed.
+												</p>
+											) : (
+												""
+											)}
 										</div>
 										<div className="form-group">
-											{/* <FontAwesomeIcon
-												icon={faCheck}
-												className={validMobile ? "valid" : "hide"}
-											/>
-											<FontAwesomeIcon
-												icon={faTimes}
-												className={validMobile || !mobile ? "hide" : "invalid"}
-											/> */}
+											{validMobile ? (
+												<FontAwesomeIcon
+													icon={faCheck}
+													className={"text-success"}
+												/>
+											) : (
+												""
+											)}
+											{!validMobile ? (
+												<FontAwesomeIcon
+													icon={faTimes}
+													className={"text-danger"}
+												/>
+											) : (
+												""
+											)}
 											<input
 												type="number"
 												id="mobileNumber"
 												onChange={(e) => setMobile(parseInt(e.target.value))}
 												value={mobile}
+												pattern="[0-9]*"
 												aria-invalid={validMobile ? "false" : "true"}
 												required
 												onFocus={() => setMobileFocus(true)}
@@ -205,26 +226,38 @@ function Register() {
 												className="form-control form-control-lg"
 												placeholder="mobile"
 											/>
-											<p
-												id="uidnote"
-												className={
-													mobileFocus && mobile && !validMobile
-														? "instructions"
-														: "offscreen"
-												}>
-												<FontAwesomeIcon icon={faInfoCircle} />
-												must be 10 digits.
-											</p>
+											{!validMobile ? (
+												<p
+													id="uidnote"
+													className={
+														mobileFocus && mobile && !validMobile
+															? "instructions"
+															: "offscreen"
+													}>
+													<FontAwesomeIcon icon={faInfoCircle} />
+													must be 10 digits.
+												</p>
+											) : (
+												""
+											)}
 										</div>
 										<div className="form-group">
-											{/* <FontAwesomeIcon
-												icon={faCheck}
-												className={validEmail ? "valid" : "hide"}
-											/>
-											<FontAwesomeIcon
-												icon={faTimes}
-												className={validEmail || !email ? "hide" : "invalid"}
-											/> */}
+											{validEmail ? (
+												<FontAwesomeIcon
+													icon={faCheck}
+													className={"text-success"}
+												/>
+											) : (
+												""
+											)}
+											{!validEmail ? (
+												<FontAwesomeIcon
+													icon={faTimes}
+													className={"text-danger"}
+												/>
+											) : (
+												""
+											)}
 											<input
 												type="email"
 												id="email"
@@ -237,18 +270,38 @@ function Register() {
 												className="form-control form-control-lg"
 												placeholder="Email"
 											/>
-											<p
-												id="uidnote"
-												className={
-													emailFocus && email && !validEmail
-														? "instructions"
-														: "offscreen"
-												}>
-												<FontAwesomeIcon icon={faInfoCircle} />
-												must be a proper email address.
-											</p>
+											{!validEmail ? (
+												<p
+													id="uidnote"
+													className={
+														emailFocus && email && !validEmail
+															? "instructions"
+															: "offscreen"
+													}>
+													<FontAwesomeIcon icon={faInfoCircle} />
+													must be a proper email address.
+												</p>
+											) : (
+												""
+											)}
 										</div>
 										<div className="form-group">
+											{validPwd ? (
+												<FontAwesomeIcon
+													icon={faCheck}
+													className={"text-success"}
+												/>
+											) : (
+												""
+											)}
+											{!validPwd ? (
+												<FontAwesomeIcon
+													icon={faTimes}
+													className={"text-danger"}
+												/>
+											) : (
+												""
+											)}
 											<input
 												type="password"
 												id="password"
@@ -262,22 +315,26 @@ function Register() {
 												className="form-control form-control-lg"
 												placeholder="Password"
 											/>
-											<p
-												id="uidnote"
-												className={
-													userFocus && name && !validName
-														? "instructions"
-														: "offscreen"
-												}>
-												<FontAwesomeIcon icon={faInfoCircle} />
-												Must contain a capital letter.
-												<br />
-												Must container a small letter.
-												<br />
-												Must container a number
-												<br />
-												Must container a special letter(! @ # $ % ).
-											</p>
+											{!validPwd ? (
+												<p
+													id="uidnote"
+													className={
+														userFocus && name && !validPwd
+															? "instructions"
+															: "offscreen"
+													}>
+													<FontAwesomeIcon icon={faInfoCircle} />
+													Must contain a capital letter.
+													<br />
+													Must container a small letter.
+													<br />
+													Must container a number
+													<br />
+													Must container a special letter(! @ # $ % ).
+												</p>
+											) : (
+												""
+											)}
 										</div>
 										<div className="form-group">
 											<input
@@ -293,6 +350,11 @@ function Register() {
 												className="form-control form-control-lg"
 												placeholder="Confirm Password"
 											/>
+											{!validMatch ? (
+												<p className="text-danger"> Paswwords do not match</p>
+											) : (
+												""
+											)}
 										</div>
 										<div className="mb-4">
 											<div className="form-check">
