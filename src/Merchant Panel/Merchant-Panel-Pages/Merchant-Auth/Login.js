@@ -25,7 +25,7 @@ function AdminLogin() {
 		console.log(email, password);
 		try {
 			const response = await axios.post(
-				`https://backend.klivepay.com/api/merchant/login`,
+				`http://27.131.178.239/api/merchant/login`,
 				JSON.stringify({ email, password }),
 				{
 					headers: { "Content-Type": "application/json" },
@@ -36,8 +36,11 @@ function AdminLogin() {
 			console.log(JSON.stringify(response?.data));
 
 			const accessToken = response?.data?.accessToken;
+			const merchantUid = response?.data?.merchantUid;
 			localStorage.setItem("token", accessToken);
 			localStorage.setItem("email", email);
+			localStorage.setItem("merchantUid", merchantUid);
+			console.log("merchantUid", merchantUid);
 			setEmail("");
 			setPassword("");
 			setSuccess(true);

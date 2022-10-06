@@ -73,6 +73,16 @@ const DepositsToMerchant = lazy(() =>
 		"../Merchant Panel/Merchant-Panel-Pages/Deposits-To-Merchant/DepositsToMerchant"
 	)
 );
+const CreateInvoice = lazy(() =>
+	import(
+		"../Merchant Panel/Merchant-Panel-Pages/Deposits-To-Merchant/CreateInvoice"
+	)
+);
+const ListOfInvoice = lazy(() =>
+	import(
+		"../Merchant Panel/Merchant-Panel-Pages/Deposits-To-Merchant/ListOfInvoice"
+	)
+);
 
 const WithdrawalRequest = lazy(() =>
 	import(
@@ -137,6 +147,8 @@ class AppRoutes extends Component {
 						path="/merchant/deposits-to-merchant"
 						component={DepositsToMerchant}
 					/>
+					<Route path="/merchant/createinvoice" component={CreateInvoice} />
+					<Route path="/merchant/listofinvoice" component={ListOfInvoice} />
 
 					<Route
 						path="/merchant/withdrawalrequest"

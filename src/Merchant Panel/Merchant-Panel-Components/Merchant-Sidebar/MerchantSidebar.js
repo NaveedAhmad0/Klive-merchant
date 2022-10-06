@@ -216,7 +216,7 @@ class MerchantSidebar extends Component {
 								? "nav-item active"
 								: "nav-item"
 						}>
-						<Link className="nav-link" to="/merchant/deposits-to-merchant">
+						<Link className="nav-link" to="/merchant/listofinvoice">
 							<i className="mdi mdi-television menu-icon"></i>
 							<span className="menu-title">
 								<Trans>Deposits to Merchant</Trans>
