@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { Link } from "react-router-dom";
 import "./NewInvoice.css";
@@ -11,7 +11,7 @@ function CreateInvoice() {
 	const [billTo, setbillTo] = useState("");
 	const [status, setstatus] = useState("");
 	const [customer, setcustomer] = useState("");
-	const [totalamount, settotalamount] = useState("");
+	const [totalamount, setTotalamount] = useState("");
 	const [itemValues, setItemValues] = useState([
 		{
 			amount: 0,
@@ -34,20 +34,22 @@ function CreateInvoice() {
 			{ amount: 0, item: "", quantity: "", totalPrice: 0 },
 		]);
 	};
+
+	useEffect(()=>{
+		const total = itemValues.reduce((previousValue, currentValue)=>previousValue+Number(currentValue.totalPrice), 0);
+        console.log(total)
+        setTotalamount(total)
+
+	},[itemValues])
+
+
+
 	let handleFormChange = (i, e) => {
 		let newFormValues = [...itemValues];
 		newFormValues[i][e.target.name] = e.target.value;
+        newFormValues[i].totalPrice=Number(newFormValues[i].amount) * Number(newFormValues[i].quantity);
 		setItemValues(newFormValues);
-		const product = itemValues.find((data) => data.name == e.target.name);
-		setItemValues([
-			...itemValues,
-			{
-				totalPrice: itemValues.reduce(
-					(total, item) => total + item.amount * item.quantity,
-					0
-				),
-			},
-		]);
+		console.log(newFormValues)
 	};
 
 	async function onSubmit(event) {
@@ -59,11 +61,10 @@ function CreateInvoice() {
 			billTo,
 			status,
 			customer,
-			amount,
-			item,
-			quantity,
+		    itemValues,
 			totalamount
 		);
+		let {item,amount,quantity}=itemValues[0]
 		try {
 			const response = await axios.post(
 				`http://27.131.178.239/api/merchant/create-invoice?merchantId=${merchantId}`,
@@ -74,8 +75,8 @@ function CreateInvoice() {
 					billTo,
 					status,
 					customer,
+				    item,
 					amount,
-					item,
 					quantity,
 					totalamount,
 				}),
@@ -241,7 +242,7 @@ function CreateInvoice() {
 										</tr>
 									</thead>
 									<tbody className="col-xxl-9 col-xl-9 col-lg-9 col-md-9 col-sm-9 col-12">
-										{itemValues?.map((e, index) => (
+										{itemValues?.map((item, index) => (
 											<tr
 												className="col-xxl-9 col-xl-9 col-lg-9 col-md-9 col-sm-9 col-12"
 												key={index}>
@@ -252,7 +253,7 @@ function CreateInvoice() {
 															type="text"
 															name="item"
 															onChange={(e) => handleFormChange(index, e)}
-															value={itemValues.item}
+															value={item.item}
 														/>
 													</u>
 												</td>
@@ -261,7 +262,7 @@ function CreateInvoice() {
 														type="text"
 														name="amount"
 														onChange={(e) => handleFormChange(index, e)}
-														value={itemValues.amount}
+														value={item.amount}
 													/>
 												</td>
 												<td className="col-2">
@@ -269,11 +270,11 @@ function CreateInvoice() {
 														type="text"
 														name="quantity"
 														onChange={(e) => handleFormChange(index, e)}
-														value={itemValues.quantity}
+														value={item.quantity}
 													/>
 												</td>
 												<td className="col-2">
-													total price :{itemValues.totalPrice}
+													total price :{item.totalPrice}
 												</td>
 											</tr>
 										))}
@@ -297,9 +298,7 @@ function CreateInvoice() {
 											<td></td>
 											<td>
 												<b>
-													{itemValues.totalPrice > 0
-														? itemValues.totalPrice + 5
-														: 0}
+													{totalamount}
 												</b>
 											</td>
 										</tr>
