@@ -6,7 +6,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 const options = {
 	paginationSize: 4,
 	pageStartIndex: 1,
@@ -24,17 +24,19 @@ const ListOfInvoice = () => {
 	const history = useHistory();
 
 	const [ittems, setItems] = useState([]);
+	const [invoiceRefId, setInvoiceRefId] = useState("");
 	console.log("items is", ittems);
-
+	const loginMail = localStorage.getItem("email");
 	useEffect(() => {
 		const getUserDetails = async () => {
 			try {
 				await axios
 					.get(
-						"http://27.131.178.239/api/merchant/get-invoice?email=merchant%40gmail.com"
+						`http://27.131.178.239/api/merchant/get-invoice?email=${loginMail}`
 					)
 					.then((response) => {
 						// if (response == 200) {
+
 						const sample = [];
 						for (let i = 0; i < response.data.length; i += 1) {
 							sample.push({
@@ -45,16 +47,18 @@ const ListOfInvoice = () => {
 										src={`data:image/png;base64,${response.data[i].qrImage}`}
 										alt="QR"
 										width={190}
+										style={{ borderRadius: "0" }}
 									/>
 								),
-								amount: response.data[i].amount,
+								amount: response.data[i].totalamount + 5,
 								status: response.data[i].email,
 								redemptiondate: response.data[i].email,
 							});
+							setInvoiceRefId(response.data[i].invoiceRefId);
 						}
+						console.log("babla", invoiceRefId);
 						setItems(sample);
 						// }
-						console.log("babla", response.data);
 						// const listItems = response.json();
 					});
 			} catch (error) {
@@ -124,10 +128,10 @@ const ListOfInvoice = () => {
 		return (
 			<h5>
 				{/* <Link to="/admin/getUserProfile"> */}
-				<a
+				<button
 					href
 					alt="issueimageload"
-					className="cursor-pointer"
+					className="btn btn-success"
 					// src={Edit}
 					onClick={() => {
 						// eslint-disable-next-line no-restricted-globals
@@ -138,7 +142,7 @@ const ListOfInvoice = () => {
 						console.log("sent email", row.id);
 					}}>
 					view
-				</a>
+				</button>
 				{/* </Link> */}
 			</h5>
 		);
@@ -147,7 +151,15 @@ const ListOfInvoice = () => {
 
 	return (
 		<div>
-			<h2 className="text-primary bw-bold">Invoice List</h2>
+			<div className="d-flex justify-content-between">
+				<h2 className="text-primary bw-bold">Invoice List</h2>
+				<div>
+					<Link to="/merchant/createinvoice">
+						<button className="btn btn-success">Create Invoice</button>
+					</Link>
+				</div>
+			</div>
+
 			{/* {ittems.map((item) => (
 				<AdminTable key={item.id} list={item} />
 			))} */}

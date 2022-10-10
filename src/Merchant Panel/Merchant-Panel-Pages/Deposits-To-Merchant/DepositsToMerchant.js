@@ -1,93 +1,24 @@
-// import axios from "axios";
-// import React, { useState } from "react";
-// import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-
-// import MerchantTable from "../../Merchant-Panel-Components/Merchant-Panel-Table/MerchantTable";
-
-// function DepositsToMerchant() {
-// 	const [qrImage, setQrImage] = useState("");
-// 	const [amount, setAmount] = useState("");
-// 	const [authorization, setAuthorization] = useState("");
-
-// 	const onSubmit = async (e) => {
-// 		e.preventDefault();
-// 		// if button enabled with JS hack
-// 		console.log("sent data", amount, authorization);
-
-// 		try {
-// 			const res = await axios
-// 				.post(
-// 					`http://27.131.178.239/api/merchant/sandbox-QR30?merchantId=f0e7ebb2-e00e-4c75-a502-25335fe98818`,
-// 					JSON.stringify({ amount, authorization }),
-// 					{
-// 						headers: { "Content-Type": "application/json" },
-// 					}
-// 				)
-// 				.then((res) => {
-// 					setQrImage(res.data.data.qrImage);
-// 					console.log(res.data.data.qrImage);
-// 					console.log("sent data", amount, typeof authorization);
-// 				});
-// 			console.log(res?.data);
-// 			// console.log(res?.accessToken);
-// 			console.log(JSON.stringify(res));
-// 		} catch (err) {
-// 			console.log(err);
-// 			// errRef.current.focus();
-// 		}
-// 	};
-
-// 	return (
-// 		<div>
-// 			<div className="row page-title-header">
-// 				<div className="col-12">
-// 					<div className="page-header">
-// 						<h4 className="page-title">Invoice</h4>
-// 						<input
-// 							type="text"
-// 							placeholder="amount"
-// 							onChange={(e) => setAmount(parseInt(e.target.value))}
-// 							value={amount}
-// 						/>
-// 						<input
-// 							type="text"
-// 							placeholder="authorization"
-// 							onChange={(e) => setAuthorization(e.target.value)}
-// 							value={authorization}
-// 						/>
-// 						<button className="btn btn-primary" onClick={onSubmit}>
-// 							submit
-// 						</button>
-// 					</div>
-
-// 					<img src={`data:image/png;base64,${qrImage}`} alt="QR" />
-// 				</div>
-// 			</div>
-// 			<MerchantTable />
-// 		</div>
-// 	);
-// }
-// export default DepositsToMerchant;
-
 import React, { useEffect, useState } from "react";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "./NewInvoice.css";
-import { MdQrCodeScanner } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 function DepositsToMerchant() {
+	const location = useLocation();
 	const [showData, setShowData] = useState([
 		{
 			email: "",
 			invoiceRefId: "",
 			mobile: "",
+			items: {},
 			billTo: "",
 			billFrom: "",
 			status: "",
 			customer: "",
 			createdAt: "",
 			amount: 0,
+			// notes: "",
 			item: null,
 			quantity: null,
 			totalamount: null,
@@ -98,16 +29,15 @@ function DepositsToMerchant() {
 		},
 	]);
 
-	const loginMail = localStorage.getItem("email");
+	const [note, setNote] = useState("");
+
+	const invoiceId = location.state.invoiceId;
 
 	useEffect(() => {
-		// const loginemail = localStorage.getItem("email");
 		axios
-			.get(
-				`http://27.131.178.239/api/merchant/get-invoice?email=test1%40mail.com`
-			)
+			.get(`http://27.131.178.239/api/merchant/invoice-details/${invoiceId}`)
 			.then((res) => {
-				for (let i = 0; i < res.data.length; i += 1) {
+				for (let i = 0; i < res.data.length; i++) {
 					setShowData({
 						email: res.data[i].email,
 						invoiceRefId: res.data[i].invoiceRefId,
@@ -118,16 +48,50 @@ function DepositsToMerchant() {
 						customer: res.data[i].customer,
 						createdAt: res.data[i].createdAt,
 						amount: res.data[i].amount,
-						item: res.data[i].item,
+						items: res.data[i].item,
+						// item: res.data[i].item,
 						quantity: res.data[i].quantity,
 						totalamount: res.data[i].totalamount,
 						expirydate: res.data[i].expirydate,
 						qrImage: res.data[i].qrImage,
+						// notes: res.data[i].note,
 					});
-					console.log("DATA IS ", res.data[i].qrImage);
+					console.log("DATA IS ", res.data[i]);
 				}
 			});
 	}, []);
+
+	// async function onSubmitNote(event) {
+	// 	event.preventDefault();
+	// 	console.log(note);
+	// 	// let { item, amount, quantity } = itemValues[0];
+	// 	// 44ba3429-c02c-430d-b6e9-2d51f6a2527f
+	// 	try {
+	// 		// for (let i = 0; i < itemValues.length; i++) {
+	// 		// }
+	// 		axios
+	// 			.post(
+	// 				`http://27.131.178.239/api/merchant/add-notes/${invoiceId}`,
+
+	// 				JSON.stringify({
+	// 					note,
+	// 				}),
+	// 				{
+	// 					headers: { "Content-Type": "application/json" },
+	// 					// withCredentials: true,
+	// 				}
+	// 			)
+
+	// 			.then((res) => {
+	// 				console.log(res?.data);
+
+	// 				alert("Note Added");
+	// 			});
+	// 		// }
+	// 	} catch (err) {
+	// 		console.log(err.message);
+	// 	}
+	// }
 
 	return (
 		<>
@@ -137,16 +101,12 @@ function DepositsToMerchant() {
 			<div className="container-fluid">
 				<div className="row">
 					<div className="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-12">
-						<div class="card">
-							<div class="card-body">
+						<div className="card">
+							<div className="card-body">
 								<div className="d-flex justify-content-between">
 									<h4 className="cardmaintitle">
 										Order {showData.invoiceRefId} Details
 									</h4>
-
-									<Link to="/merchant/createinvoice">
-										<button className="btn btn-success">Create Invoice</button>
-									</Link>
 								</div>
 								<br />
 								<div className="row">
@@ -197,9 +157,9 @@ function DepositsToMerchant() {
 							</div>
 						</div>
 						<br />
-						<div class="card" id="cardmerchant">
-							<div class="card-body">
-								<table class="table" id="tablebodyrow">
+						<div className="card" id="cardmerchant">
+							<div className="card-body">
+								<table className="table" id="tablebodyrow">
 									<thead>
 										<tr>
 											<th scope="col" className="tablenone">
@@ -212,17 +172,19 @@ function DepositsToMerchant() {
 										</tr>
 									</thead>
 									<tbody>
-										{/* {sample.map((index) => ( */}
-										<tr>
-											<td className="tablenone">1</td>
-											<td>
-												<u>{showData.item}</u>
-											</td>
-											<td>{showData.amount}</td>
-											<td>{showData.quantity}</td>
-											<td>{showData.totalamount}</td>
-										</tr>
-										{/* ))} */}
+										{showData.items
+											? showData.items?.map((item, index) => (
+													<tr key={item.item}>
+														<td className="tablenone">1</td>
+														<td>
+															<u>{item.item}</u>
+														</td>
+														<td>{item.amount}</td>
+														<td>{item.quantity}</td>
+														<td>{item.amount * item.quantity}</td>
+													</tr>
+											  ))
+											: "No data"}
 
 										<tr>
 											<th scope="row"></th>
@@ -248,30 +210,6 @@ function DepositsToMerchant() {
 										</tr>
 									</tbody>
 								</table>
-								<div className="buttons">
-									<div>
-										<button type="button" class="btn btn-outline-primary">
-											Add items(s)
-										</button>
-										&nbsp;&nbsp;&nbsp;
-										<button type="button" class="btn btn-outline-primary">
-											Apply Coupan
-										</button>
-										&nbsp;&nbsp;&nbsp;
-										<button type="button" class="btn btn-outline-success">
-											Refund
-										</button>
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<button
-											type="button"
-											class="btn btn-success"
-											style={{
-												marginLeft: "10rem",
-											}}>
-											Recalculate
-										</button>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -279,18 +217,9 @@ function DepositsToMerchant() {
 					{/* ....Right side Cards.... */}
 
 					<div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
-						<div
-							class="card"
-							// style={{
-							// 	marginLeft: "20%",
-							// 	width: "75%",
-							// 	height: "263px",
-							// 	background: "#FFFFFF",
-							// 	borderRadius: "10px",
-							// }}
-						>
-							<div class="card-header">PayPal Here</div>
-							<div className="qrcode pb-5">
+						<div className="card">
+							<div className="card-header">PayPal Here</div>
+							<div className="qrcode p-3">
 								<img
 									src={`data:image/png;base64,${showData.qrImage}`}
 									alt="QR"
@@ -300,49 +229,19 @@ function DepositsToMerchant() {
 						</div>
 						<br />
 
-						<div
-							class="card"
-							// style={{
-							// 	marginLeft: "20%",
-							// 	width: "75%",
-							// 	height: "263px",
-							// 	background: "#FFFFFF",
-							// 	borderRadius: "10px",
-							// }}
-						>
-							<div class="card-footer">
+						<div className="card">
+							<div className="card-footer">
 								Order Notes
-								<hr
-								// style={{
-								// 	width: "17.6rem",
-								// 	marginLeft: "-20px",
-								// 	opacity: "0.1",
-								// }}
-								></hr>
-								<p>There are no notes yet</p>
-								<hr
-								// style={{
-								// 	width: "17.6rem",
-								// 	marginLeft: "-20px",
-								// 	opacity: "0.1",
-								// }}
-								></hr>
+								<hr></hr>
+								<p>{showData.notes}</p>
+								<hr></hr>
 								<p className="heading">Add Notes :</p>
 								<input
 									type="text"
-									placeholder=""
-									// style={{
-									// 	boxSizing: "border-box",
-									// 	width: "226px",
-									// 	height: "40px",
-									// 	left: "1124px",
-									// 	top: "674px",
-									// 	background: "#FFFFFF",
-									// 	border: "1px solid #CBCCD3",
-									// 	borderRadius: "4px",
-									// 	marginTop: "-1px",
-									// }}
-								></input>
+									placeholder="Add Note"
+									onChange={(e) => setNote(e.target.value)}
+									value={note}
+								/>
 								<div className="footerbuttons">
 									<span className=" d-flex justify-content-between ">
 										<button
@@ -358,6 +257,7 @@ function DepositsToMerchant() {
 										<button
 											type="button"
 											className="btn btn-danger"
+											// onClick={onSubmitNote}
 											// style={{ height: "35px" }}
 										>
 											Add

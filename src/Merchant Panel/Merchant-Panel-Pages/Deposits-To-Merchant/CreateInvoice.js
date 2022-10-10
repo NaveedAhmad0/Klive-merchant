@@ -16,15 +16,12 @@ function CreateInvoice() {
 		{
 			amount: 0,
 			item: "",
-			quantity: "",
+			quantity: 0,
 			totalPrice: 0,
 		},
 	]);
-	// const [totalPrice, settotalPrice] = useState("0");
-	const [success, setSuccess] = useState(false);
-	const [errMsg, setErrMsg] = useState("");
+
 	// const logindetails = { email, password };
-	const { amount, item, quantity, totalPrice } = itemValues;
 	const merchantId = localStorage.getItem("merchantUid");
 
 	// const navigate = Redirect();
@@ -35,23 +32,32 @@ function CreateInvoice() {
 		]);
 	};
 
-	useEffect(()=>{
-		const total = itemValues.reduce((previousValue, currentValue)=>previousValue+Number(currentValue.totalPrice), 0);
-        console.log(total)
-        setTotalamount(total)
+	useEffect(() => {
+		const total = itemValues.reduce(
+			(previousValue, currentValue) =>
+				previousValue + Number(currentValue.totalPrice),
+			5
+		);
+		console.log(total);
+		setTotalamount(total);
+	}, [itemValues]);
 
-	},[itemValues])
-
-
-
+	// let handleFormChange = (i, e) => {
+	// 	let newFormValues = [...itemValues];
+	// 	newFormValues[i][e.target.name] = e.target.value;
+	// 	newFormValues[i].totalPrice =
+	// 		Number(newFormValues[i].amount) * Number(newFormValues[i].quantity);
+	// 	setItemValues(newFormValues);
+	// 	console.log(newFormValues);
+	// };
 	let handleFormChange = (i, e) => {
 		let newFormValues = [...itemValues];
 		newFormValues[i][e.target.name] = e.target.value;
-        newFormValues[i].totalPrice=Number(newFormValues[i].amount) * Number(newFormValues[i].quantity);
+		newFormValues[i].totalPrice =
+			Number(newFormValues[i].amount) * Number(newFormValues[i].quantity);
 		setItemValues(newFormValues);
-		console.log(newFormValues)
+		console.log(newFormValues);
 	};
-
 	async function onSubmit(event) {
 		event.preventDefault();
 		console.log(
@@ -61,48 +67,78 @@ function CreateInvoice() {
 			billTo,
 			status,
 			customer,
-		    itemValues,
+			itemValues,
 			totalamount
 		);
-		let {item,amount,quantity}=itemValues[0]
+		// let { item, amount, quantity } = itemValues[0];
+		// 44ba3429-c02c-430d-b6e9-2d51f6a2527f
 		try {
-			const response = await axios.post(
-				`http://27.131.178.239/api/merchant/create-invoice?merchantId=${merchantId}`,
-				JSON.stringify({
-					email,
-					mobile,
-					billFrom,
-					billTo,
-					status,
-					customer,
-				    item,
-					amount,
-					quantity,
-					totalamount,
-				}),
-				{
-					headers: { "Content-Type": "application/json" },
-					// withCredentials: true,
-				}
-			);
+			// for (let i = 0; i < itemValues.length; i++) {
+			// }
+			axios
+				.post(
+					`http://27.131.178.239/api/merchant/create-invoice?merchantId=${merchantId}`,
+					JSON.stringify({
+						email,
+						mobile,
+						billFrom,
+						billTo,
+						status,
+						customer,
+						item: itemValues,
+						totalamount,
+					}),
+					{
+						headers: { "Content-Type": "application/json" },
+						// withCredentials: true,
+					}
+				)
+				.then((res) => {
+					console.log(res?.data);
 
-			console.log(JSON.stringify(response?.data));
-
-			setEmail("");
-			// setPassword("");
-			setSuccess(true);
+					alert("Invoice Added");
+				});
+			// }
 		} catch (err) {
-			if (!err?.response) {
-				setErrMsg("No Server Response");
-			} else if (err.response?.status === 400) {
-				setErrMsg("Invalid Credentialials");
-				setSuccess(false);
-			} else {
-				setErrMsg("Login failed");
-			}
-			console.log(err);
+			console.log(err.message);
 		}
-		console.log(success);
+		// try {
+		// 	const response = await axios.post(
+		// 		`http://27.131.178.239/api/merchant/create-invoice?merchantId=${merchantId}`,
+		// 		JSON.stringify({
+		// 			email,
+		// 			mobile,
+		// 			billFrom,
+		// 			billTo,
+		// 			status,
+		// 			customer,
+		// 			item,
+		// 			amount,
+		// 			quantity,
+		// 			totalamount,
+		// 		}),
+		// 		{
+		// 			headers: { "Content-Type": "application/json" },
+		// 			// withCredentials: true,
+		// 		}
+		// 	);
+
+		// 	console.log(JSON.stringify(response?.data));
+		// 	alert("Invoice Added");
+		// 	// setPassword("");
+		// 	setSuccess(true);
+		// } catch (err) {
+		// 	if (!err?.response) {
+		// 		setErrMsg("No Server Response");
+		// 	} else if (err.response?.status === 400) {
+		// 		setErrMsg("Invalid Credentialials");
+		// 		setSuccess(false);
+		// 	} else {
+		// 		setErrMsg("Login failed");
+		// 	}
+		// 	console.log(err);
+		// }
+		// console.log(success);
 	}
 
 	return (
@@ -115,9 +151,6 @@ function CreateInvoice() {
 					<div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						<div class="card">
 							<div class="card-body">
-								<h4 className="cardmaintitle">Order #12345 Details</h4>
-
-								<br />
 								<div className="row">
 									<div className="col-4">
 										<h6 className="text-primary">General</h6>
@@ -297,9 +330,7 @@ function CreateInvoice() {
 											</td>
 											<td></td>
 											<td>
-												<b>
-													{totalamount}
-												</b>
+												<b>{totalamount}</b>
 											</td>
 										</tr>
 									</tbody>
