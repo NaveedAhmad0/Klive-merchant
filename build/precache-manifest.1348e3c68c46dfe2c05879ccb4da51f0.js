@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "82250a206d57ff09418bf0ec23ddba4b",
+    "revision": "f32a625e758afaaf2f5c475c37310b73",
     "url": "/merchant/index.html"
   },
   {
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/merchant/static/css/12.08517c48.chunk.css"
   },
   {
-    "revision": "18ce675c0a8e3c7ad4c4",
+    "revision": "9741227bdb09538a9d6d",
     "url": "/merchant/static/css/14.4e44a33e.chunk.css"
   },
   {
@@ -24,11 +24,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/merchant/static/css/7.16ce936c.chunk.css"
   },
   {
-    "revision": "ca6f6190316f5b534e0d",
+    "revision": "e830788c404fc4efd8fe",
     "url": "/merchant/static/css/8.0bded8cb.chunk.css"
   },
   {
-    "revision": "d7374d2ac438b54e1a21",
+    "revision": "5aa1b084140d142af93b",
     "url": "/merchant/static/css/9.0bded8cb.chunk.css"
   },
   {
@@ -60,8 +60,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/merchant/static/js/13.7742b142.chunk.js"
   },
   {
-    "revision": "18ce675c0a8e3c7ad4c4",
-    "url": "/merchant/static/js/14.5ab098dc.chunk.js"
+    "revision": "9741227bdb09538a9d6d",
+    "url": "/merchant/static/js/14.c8eeb590.chunk.js"
   },
   {
     "revision": "d2e0c0a13d2210ffff5b",
@@ -80,8 +80,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/merchant/static/js/18.1e892eee.chunk.js"
   },
   {
-    "revision": "66734c80e335535e42d8",
-    "url": "/merchant/static/js/19.ba32c3b5.chunk.js"
+    "revision": "790738bd012d87c2cd00",
+    "url": "/merchant/static/js/19.0fada013.chunk.js"
   },
   {
     "revision": "2ac90ca15c8508980f2f",
@@ -152,20 +152,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/merchant/static/js/7.f796a275.chunk.js"
   },
   {
-    "revision": "ca6f6190316f5b534e0d",
-    "url": "/merchant/static/js/8.c3f3a20b.chunk.js"
+    "revision": "e830788c404fc4efd8fe",
+    "url": "/merchant/static/js/8.206bcbf1.chunk.js"
   },
   {
-    "revision": "d7374d2ac438b54e1a21",
-    "url": "/merchant/static/js/9.58c388ed.chunk.js"
+    "revision": "5aa1b084140d142af93b",
+    "url": "/merchant/static/js/9.a47c15d7.chunk.js"
   },
   {
     "revision": "034a39b3c650d376309a",
     "url": "/merchant/static/js/main.86f190c9.chunk.js"
   },
   {
-    "revision": "4bdc53702debf926582a",
-    "url": "/merchant/static/js/runtime~main.5c8e5519.js"
+    "revision": "aef4a8f64b05e06c7208",
+    "url": "/merchant/static/js/runtime~main.95d1b661.js"
   },
   {
     "revision": "d42274826fceb5a1b786df1cfeb5a5ef",
