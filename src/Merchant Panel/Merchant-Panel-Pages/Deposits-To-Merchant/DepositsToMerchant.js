@@ -35,7 +35,9 @@ function DepositsToMerchant() {
 
 	useEffect(() => {
 		axios
-			.get(`http://27.131.178.239/api/merchant/invoice-details/${invoiceId}`)
+			.get(
+				`https://backend.klivepay.com/api/merchant/invoice-details/${invoiceId}`
+			)
 			.then((res) => {
 				for (let i = 0; i < res.data.length; i++) {
 					setShowData({

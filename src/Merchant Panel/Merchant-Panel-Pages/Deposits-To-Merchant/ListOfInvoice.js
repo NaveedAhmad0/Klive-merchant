@@ -32,7 +32,7 @@ const ListOfInvoice = () => {
 			try {
 				await axios
 					.get(
-						`http://27.131.178.239/api/merchant/get-invoice?email=${loginMail}`
+						`https://backend.klivepay.com/api/merchant/get-invoice?email=${loginMail}`
 					)
 					.then((response) => {
 						// if (response == 200) {

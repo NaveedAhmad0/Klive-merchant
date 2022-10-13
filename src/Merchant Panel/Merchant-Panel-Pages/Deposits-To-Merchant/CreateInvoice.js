@@ -77,7 +77,7 @@ function CreateInvoice() {
 			// }
 			axios
 				.post(
-					`http://27.131.178.239/api/merchant/create-invoice?merchantId=${merchantId}`,
+					`https://backend.klivepay.com/api/merchant/create-invoice?merchantId=${merchantId}`,
 					JSON.stringify({
 						email,
 						mobile,

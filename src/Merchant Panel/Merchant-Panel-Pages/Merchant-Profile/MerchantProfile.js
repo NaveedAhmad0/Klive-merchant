@@ -78,6 +78,7 @@ const UserProfile = () => {
 		}
 		return formIsValid;
 	}
+	const loginemail = localStorage.getItem("email");
 
 	useEffect(() => {
 		// const loginemail = localStorage.getItem("email");
@@ -134,8 +135,6 @@ const UserProfile = () => {
 				console.log("DATA IS ", res.data.merchant);
 			});
 	}, []);
-
-	const loginemail = localStorage.getItem("email");
 
 	async function onSubmit(event) {
 		event.preventDefault();
