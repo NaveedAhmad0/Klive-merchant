@@ -96,7 +96,7 @@ function Register() {
 		}
 		try {
 			const response = await axios.post(
-				"http://27.131.178.239/api/merchant/register",
+				"https://backend.klivepay.com/api/merchant/register",
 				JSON.stringify({ name, mobile, email, password }),
 				{
 					headers: { "Content-Type": "application/json" },
