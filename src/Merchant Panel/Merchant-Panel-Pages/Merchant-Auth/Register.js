@@ -148,25 +148,25 @@ function Register() {
 									<div className="row">
 										<div className="col-lg-6">
 											<form>
-												{userFocus && validName ? (
-													<FontAwesomeIcon
-														icon={faCheck}
-														className={"text-success"}
-													/>
-												) : (
-													""
-												)}
-												{userFocus && !validName ? (
-													<FontAwesomeIcon
-														icon={faTimes}
-														className={"text-danger"}
-													/>
-												) : (
-													""
-												)}
 												<div className="form-group">
 													<label className={`${styles.registerLabel}`}>
-														User Name *
+														User Name *{" "}
+														{userFocus && validName ? (
+															<FontAwesomeIcon
+																icon={faCheck}
+																className={"text-success"}
+															/>
+														) : (
+															""
+														)}
+														{userFocus && !validName ? (
+															<FontAwesomeIcon
+																icon={faTimes}
+																className={"text-danger"}
+															/>
+														) : (
+															""
+														)}
 													</label>
 													<input
 														type="text"
@@ -206,25 +206,25 @@ function Register() {
 										</div>
 										<div className="col-lg-6">
 											<form>
-												{mobileFocus && validMobile ? (
-													<FontAwesomeIcon
-														icon={faCheck}
-														className={"text-success"}
-													/>
-												) : (
-													""
-												)}
-												{mobileFocus && !validMobile ? (
-													<FontAwesomeIcon
-														icon={faTimes}
-														className={"text-danger"}
-													/>
-												) : (
-													""
-												)}
 												<div className="form-group">
 													<label className={`${styles.registerLabel}`}>
-														Mobile Number *
+														Mobile Number * {""}
+														{mobileFocus && validMobile ? (
+															<FontAwesomeIcon
+																icon={faCheck}
+																className={"text-success"}
+															/>
+														) : (
+															""
+														)}
+														{mobileFocus && !validMobile ? (
+															<FontAwesomeIcon
+																icon={faTimes}
+																className={"text-danger"}
+															/>
+														) : (
+															""
+														)}
 													</label>
 													<input
 														type="number"
@@ -261,25 +261,25 @@ function Register() {
 									</div>
 									<div className="row">
 										<form className="pt-3">
-											{emailFocus && validEmail ? (
-												<FontAwesomeIcon
-													icon={faCheck}
-													className={"text-success"}
-												/>
-											) : (
-												""
-											)}
-											{emailFocus && !validEmail ? (
-												<FontAwesomeIcon
-													icon={faTimes}
-													className={"text-danger"}
-												/>
-											) : (
-												""
-											)}
 											<div className="form-group">
 												<label className={`${styles.registerLabel}`}>
-													Email Address
+													Email Address{" "}
+													{emailFocus && validEmail ? (
+														<FontAwesomeIcon
+															icon={faCheck}
+															className={"text-success"}
+														/>
+													) : (
+														""
+													)}
+													{emailFocus && !validEmail ? (
+														<FontAwesomeIcon
+															icon={faTimes}
+															className={"text-danger"}
+														/>
+													) : (
+														""
+													)}
 												</label>
 												<input
 													type="email"
@@ -313,25 +313,25 @@ function Register() {
 									<div className="row">
 										<div className="col-lg-6">
 											<form className="pt-3">
-												{pwdFocus && validPwd ? (
-													<FontAwesomeIcon
-														icon={faCheck}
-														className={"text-success"}
-													/>
-												) : (
-													""
-												)}
-												{pwdFocus && !validPwd ? (
-													<FontAwesomeIcon
-														icon={faTimes}
-														className={"text-danger"}
-													/>
-												) : (
-													""
-												)}
 												<div className="form-group">
 													<label className={`${styles.registerLabel}`}>
-														Password *
+														Password *{" "}
+														{pwdFocus && validPwd ? (
+															<FontAwesomeIcon
+																icon={faCheck}
+																className={"text-success"}
+															/>
+														) : (
+															""
+														)}
+														{pwdFocus && !validPwd ? (
+															<FontAwesomeIcon
+																icon={faTimes}
+																className={"text-danger"}
+															/>
+														) : (
+															""
+														)}
 													</label>
 													<input
 														type="password"
@@ -371,25 +371,25 @@ function Register() {
 										</div>
 										<div className="col-lg-6">
 											<form className="pt-3">
-												{matchFocus && validMatch ? (
-													<FontAwesomeIcon
-														icon={faCheck}
-														className={"text-success"}
-													/>
-												) : (
-													""
-												)}
-												{matchFocus && !validMatch ? (
-													<FontAwesomeIcon
-														icon={faTimes}
-														className={"text-danger"}
-													/>
-												) : (
-													""
-												)}
 												<div className="form-group">
 													<label className={`${styles.registerLabel}`}>
-														ConfirmPassword *
+														ConfirmPassword *{" "}
+														{matchFocus && validMatch ? (
+															<FontAwesomeIcon
+																icon={faCheck}
+																className={"text-success"}
+															/>
+														) : (
+															""
+														)}
+														{matchFocus && !validMatch ? (
+															<FontAwesomeIcon
+																icon={faTimes}
+																className={"text-danger"}
+															/>
+														) : (
+															""
+														)}
 													</label>
 													<input
 														type="password"
@@ -496,7 +496,7 @@ function Register() {
 									</div>
 									<div className="text-left mt-4 font-weight-light">
 										Already have an account?{" "}
-										<Link to="/user-pages/login" className="text-primary">
+										<Link to="/merchant/login" className="text-primary">
 											Login
 										</Link>
 									</div>
