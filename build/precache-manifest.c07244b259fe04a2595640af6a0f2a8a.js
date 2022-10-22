@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1ae89f0f70e47cd7db4ee765f3dbed01",
+    "revision": "6cba764a9f34779190706733052e65ab",
     "url": "/merchant/index.html"
   },
   {
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/merchant/static/css/12.08517c48.chunk.css"
   },
   {
-    "revision": "9741227bdb09538a9d6d",
+    "revision": "4872dfa5250eed14b2d3",
     "url": "/merchant/static/css/14.4e44a33e.chunk.css"
   },
   {
@@ -60,8 +60,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/merchant/static/js/13.52b5c10e.chunk.js"
   },
   {
-    "revision": "9741227bdb09538a9d6d",
-    "url": "/merchant/static/js/14.c8eeb590.chunk.js"
+    "revision": "4872dfa5250eed14b2d3",
+    "url": "/merchant/static/js/14.097a043d.chunk.js"
   },
   {
     "revision": "d2e0c0a13d2210ffff5b",
@@ -164,8 +164,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/merchant/static/js/main.86f190c9.chunk.js"
   },
   {
-    "revision": "beacddd297e4e043e73a",
-    "url": "/merchant/static/js/runtime~main.ce92c121.js"
+    "revision": "fb03f1a63d796af1ac81",
+    "url": "/merchant/static/js/runtime~main.6e246efa.js"
   },
   {
     "revision": "d42274826fceb5a1b786df1cfeb5a5ef",

@@ -79,7 +79,7 @@ const UserProfile = () => {
 		return formIsValid;
 	}
 	const loginemail = localStorage.getItem("email");
-
+	const img = "image60fe260a-40f6-4d10-ac2a-357da78dd3f5.jpg";
 	useEffect(() => {
 		// const loginemail = localStorage.getItem("email");
 		axios
@@ -1496,6 +1496,10 @@ const UserProfile = () => {
 					</div>
 					{/* <button type="button" className={`btn ${styles.userBtn}`}>Finish</button> */}
 
+					<div>
+						Image
+						<img src={`data:image/jpg,${img}`} alt="" />
+					</div>
 					<button
 						type="button"
 						disabled={
@@ -1506,7 +1510,7 @@ const UserProfile = () => {
 						}
 						onClick={(event) => onSubmit(event)}
 						className={`btn ${styles.userBtn}`}>
-						Finish
+						Finishh
 					</button>
 				</div>
 			</div>
