@@ -59,16 +59,7 @@ const ResetPassword = () => {
 										placeholder="Old Password"
 									/>
 								</div>
-								<div className="form-group">
-									<input
-										type="email"
-										className="form-control form-control-lg"
-										id="exampleInputEmail1"
-										onChange={(e) => setEmail(e.target.value)}
-										value={email}
-										placeholder="New password"
-									/>
-								</div>
+
 								<div className="form-group">
 									<input
 										type="password"

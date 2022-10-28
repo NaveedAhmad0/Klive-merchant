@@ -71,7 +71,7 @@ function AdminLogin() {
 									alt="logo"
 								/> */}
 							</div>
-							<h4 className="text-primary">Merchantt Login</h4>
+							<h4 className="text-primary">Merchant Login</h4>
 							<Form className="pt-3">
 								<Form.Group className="d-flex search-field">
 									<Form.Control
