@@ -96,7 +96,9 @@ function CreateInvoice() {
 				.then((res) => {
 					console.log(res?.data);
 
-					alert("Invoice Added");
+					// if (res.data.code == 200) {
+					alert(res.data.message);
+					// }
 				});
 			// }
 		} catch (err) {
@@ -229,7 +231,7 @@ function CreateInvoice() {
 												borderRadius: "4px",
 												marginTop: "-1px",
 											}}
-											onChange={(e) => setMobile(e.target.value)}
+											onChange={(e) => setMobile(parseInt(e.target.value))}
 											value={mobile}></input>
 									</div>
 									<div className="col-4">

@@ -67,6 +67,16 @@ const MerchantTransactionHistory = lazy(() =>
 		"../Merchant Panel/Merchant-Panel-Pages/Merchant-Transaction-History/MerchantTransactionHistory"
 	)
 );
+const TransactionDetails = lazy(() =>
+	import(
+		"../Merchant Panel/Merchant-Panel-Pages/Merchant-Transaction-History/TransactionDetails"
+	)
+);
+const Slipverification = lazy(() =>
+	import(
+		"../Merchant Panel/Merchant-Panel-Pages/Merchant-Transaction-History/Slipverification"
+	)
+);
 
 const DepositsToMerchant = lazy(() =>
 	import(
@@ -141,6 +151,14 @@ class AppRoutes extends Component {
 					<Route
 						path="/merchant/transactionhistory"
 						component={MerchantTransactionHistory}
+					/>
+					<Route
+						path="/merchant/transactionDetails"
+						component={TransactionDetails}
+					/>
+					<Route
+						path="/merchant/slip-verification"
+						component={Slipverification}
 					/>
 
 					<Route
