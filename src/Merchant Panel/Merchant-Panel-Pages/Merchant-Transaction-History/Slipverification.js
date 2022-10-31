@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 const Slipverification = () => {
 	const [showData, setShowData] = useState([
 		{
@@ -75,29 +75,29 @@ const Slipverification = () => {
 										<div className="col-6">transTime</div>
 										<div className="col-6">{showData.transTime}</div>
 									</div>
-									<div className="col-12 d-flex my-5">
+									<div className="col-12  my-5">
 										<div className="col-6 text-primary">RECIEVER DETAILS</div>
 										{/* <div className="col-6">{sahowData.displayName}</div> */}
+										<div className="col-12 d-flex">
+											<div className="col-6">displayName</div>
+											<div className="col-6">{showData.displayName}</div>
+										</div>
+										<div className="col-12 d-flex">
+											<div className="col-6">Reciever account type</div>
+											<div className="col-6">{showData.type}</div>
+										</div>
 									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">displayName</div>
-										<div className="col-6">{showData.displayName}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">Reciever account type</div>
-										<div className="col-6">{showData.type}</div>
-									</div>
-									<div className="col-12 d-flex my-5">
+									<div className="col-12 my-5">
 										<div className="col-6 text-primary">SENDER DETAILS</div>
 										{/* <div className="col-6">{sahowData.displayName}</div> */}
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">displayName</div>
-										<div className="col-6">{showData.displayNamee}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">payeeName</div>
-										<div className="col-6">{showData.payeeName}</div>
+										<div className="col-12 d-flex">
+											<div className="col-6">displayName</div>
+											<div className="col-6">{showData.displayNamee}</div>
+										</div>
+										<div className="col-12 d-flex">
+											<div className="col-6">payeeName</div>
+											<div className="col-6">{showData.payeeName}</div>
+										</div>
 									</div>
 									<div className="col-12 d-flex">
 										<div className="col-6">countryCode</div>
