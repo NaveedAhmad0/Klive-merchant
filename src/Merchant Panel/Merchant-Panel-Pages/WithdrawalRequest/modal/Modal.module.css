@@ -47,7 +47,7 @@
   }
   
   .modalContent {
-    padding-top: 50px;
+    /* padding-top: 50px; */
     padding-left: 40px;
     display: flex;
     text-align: left;

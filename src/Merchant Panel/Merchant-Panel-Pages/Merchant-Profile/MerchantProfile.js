@@ -493,7 +493,7 @@ const UserProfile = () => {
 								<div className="form-group">
 									<label className={styles.userLabel}>month of birth</label>
 									<input
-										type="month"
+										type="day"
 										name="monthOfBirth"
 										onChange={(e) => {
 											setShowData({
@@ -509,6 +509,13 @@ const UserProfile = () => {
 									{fields["monthOfBirth"] == null ||
 									fields["monthOfBirth"] == "" ? (
 										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
+									{fields["monthOfBirth"] > 12 ? (
+										<span className="text-danger">
+											Should be less than or equals to 12
+										</span>
 									) : (
 										""
 									)}
@@ -535,6 +542,13 @@ const UserProfile = () => {
 									{fields["dayOfBirth"] == null ||
 									fields["dayOfBirth"] == "" ? (
 										<span className="text-danger">Field can't be empty</span>
+									) : (
+										""
+									)}
+									{fields["dayOfBirth"] > 31 ? (
+										<span className="text-danger">
+											Should be less than or equals to 31
+										</span>
 									) : (
 										""
 									)}
@@ -1301,11 +1315,11 @@ const UserProfile = () => {
 									<div className="form-group">
 										<label className={styles.userLabel}>bank account</label>
 										<input
-											type="text"
+											type="number"
 											onChange={(e) => {
 												setShowData({
 													...showData,
-													bankAccount: e.target.value,
+													bankAccount: parseInt(e.target.value),
 												});
 											}}
 											value={showData.bankAccount}

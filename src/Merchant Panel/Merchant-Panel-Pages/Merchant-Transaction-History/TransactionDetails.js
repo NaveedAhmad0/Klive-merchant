@@ -37,7 +37,7 @@ const TransactionDetails = () => {
 				`https://backend.klivepay.com/api/merchant/payment-inquiry?merchantId=${merchId}&date=${date}&reference1=${invoiceId}&reference2=${referece2}`
 			)
 			.then((res) => {
-				console.log("DATA", res.data.data);
+				console.log("DATA", res);
 				for (let i = 0; i < res.data.data.length; i++) {
 					setShowData({
 						eventCode: res.data.data[i].eventCode,
@@ -70,82 +70,88 @@ const TransactionDetails = () => {
 					<div className="col-md-12 grid-margin">
 						<div className="card">
 							<div className="card-body">
-								<div className="container text-left">
-									<div className="col-12 d-flex">
-										<div className="col-6">Event Code</div>
-										<div className="col-6">{showData.eventCode}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">transactionType</div>
-										<div className="col-6">{showData.transactionType}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">payeeProxyId</div>
-										<div className="col-6">{showData.payeeProxyId}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">payeeProxyType</div>
-										<div className="col-6">{showData.payeeProxyType}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">payeeAccountNumber</div>
-										<div className="col-6">{showData.payeeAccountNumber}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">payeeName</div>
-										<div className="col-6">{showData.payeeName}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">payerAccountNumber</div>
-										<div className="col-6">{showData.payerAccountNumber}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">payerName</div>
-										<div className="col-6">{showData.payerName}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">amount</div>
-										<div className="col-6">{showData.amount}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">transactionId</div>
-										<div className="col-6">{showData.transactionId}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">fastEasySlipNumber</div>
-										<div className="col-6">{showData.fastEasySlipNumber}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">billPaymentRef1</div>
-										<div className="col-6">{showData.billPaymentRef1}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">billPaymentRef2</div>
-										<div className="col-6">{showData.billPaymentRef2}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">billPaymentRef3</div>
-										<div className="col-6">{showData.billPaymentRef3}</div>
-									</div>
-									<div className="col-12 mt-5 text-left">
-										{/* <Link to="/merchant/slip-verification"> */}
-										<button
-											className="btn btn-primary"
-											onClick={() => {
-												// eslint-disable-next-line no-restricted-globals
-												history.push({
-													pathname: "/merchant/slip-verification",
-													state: {
-														invoiceId: showData.fastEasySlipNumber,
-														merchId: merchId,
-													},
-												});
-												console.log("sent email", showData.fastEasySlipNumber);
-											}}>
-											slip verification Details
-										</button>
-										{/* </Link> */}
-									</div>
+								<div className="container">
+									<table class="table table-striped table-bordered">
+										<tbody>
+											<tr>
+												<td>Event Code</td>
+												<td>{showData.eventCode}</td>
+											</tr>
+											<tr>
+												<td>transactionType</td>
+												<td>{showData.transactionType}</td>
+											</tr>
+											<tr>
+												<td>payeeProxyId</td>
+												<td>{showData.payeeProxyId}</td>
+											</tr>
+											<tr>
+												<td>payeeProxyType</td>
+												<td>{showData.payeeProxyType}</td>
+											</tr>
+											<tr>
+												<td>payeeAccountNumber</td>
+												<td>{showData.payeeAccountNumber}</td>
+											</tr>
+											<tr>
+												<td>payeeName</td>
+												<td>{showData.payeeName}</td>
+											</tr>
+											<tr>
+												<td>payerAccountNumber</td>
+												<td>{showData.payerAccountNumber}</td>
+											</tr>
+											<tr>
+												<td>payerName</td>
+												<td>{showData.payerName}</td>
+											</tr>
+											<tr>
+												<td>amount</td>
+												<td>{showData.amount}</td>
+											</tr>
+											<tr>
+												<td>transactionId</td>
+												<td>{showData.transactionId}</td>
+											</tr>
+											<tr>
+												<td>fastEasySlipNumber</td>
+												<td>{showData.fastEasySlipNumber}</td>
+											</tr>
+											<tr>
+												<td>billPaymentRef1</td>
+												<td>{showData.billPaymentRef1}</td>
+											</tr>
+											<tr>
+												<td>billPaymentRef2</td>
+												<td>{showData.billPaymentRef2}</td>
+											</tr>
+											<tr>
+												<td>billPaymentRef3</td>
+												<td>{showData.billPaymentRef3}</td>
+											</tr>
+											<tr>
+												<td>billPaymentRef2</td>
+												<td>{showData.billPaymentRef2}</td>
+											</tr>
+										</tbody>
+									</table>
+									<br></br>
+									<button
+										type="button"
+										className="btn btn-primary btn-block"
+										onClick={() => {
+											//eslint-disable-next-line no-restricted-globals
+											history.push({
+												pathname: "/merchant/slip-verification",
+												state: {
+													invoiceId: showData.fastEasySlipNumber,
+													merchId: merchId,
+												},
+											});
+											console.log("sent email", showData.fastEasySlipNumber);
+										}}>
+										Slip verification Details
+									</button>
 								</div>
 							</div>
 						</div>

@@ -1147,7 +1147,7 @@ export class UserDashboard extends Component {
 								<div className="row">
 									<div className="col-xl-3 col-lg-6 col-sm-6 grid-margin-xl-0 grid-margin">
 										<div className="d-flex newboxcss">
-											<div className="wrapper my-auto ml-auto ml-lg-4 mr-1">
+											<div className="wrapper my-auto ml-auto ml-lg-3 mr-1">
 												<svg
 													stroke="currentColor"
 													fill="currentColor"
@@ -1164,7 +1164,7 @@ export class UserDashboard extends Component {
 													Main Account
 												</h4>
 												<h3 className="mb-0 font-weight-semibold">32,451</h3>
-												<p className="mb-0 text-muted">+14.00(+0.50%)</p>
+												<p className="mb-0 text-white">+14.00(+0.50%)</p>
 											</div>
 										</div>
 									</div>
@@ -1177,7 +1177,7 @@ export class UserDashboard extends Component {
 												</h5>
 												<p className="mb-0 text-muted">+138.97(+0.54%)</p>
 											</div>
-											<div className="wrapper my-auto ml-auto ml-lg-4">
+											<div className="wrapper my-auto ml-auto ml-lg-3">
 												<Line
 													ref="chart"
 													data={this.state.impressionChartData}
@@ -1199,7 +1199,7 @@ export class UserDashboard extends Component {
 												</h5>
 												<p className="mb-0 text-muted">+57.62(+0.76%)</p>
 											</div>
-											<div className="wrapper my-auto ml-auto ml-lg-4">
+											<div className="wrapper my-auto ml-auto ml-lg-3">
 												<Line
 													ref="chart"
 													data={this.state.conversionChartData}
@@ -1221,7 +1221,7 @@ export class UserDashboard extends Component {
 												</h5>
 												<p className="mb-0 text-muted">+138.97(+0.54%)</p>
 											</div>
-											<div className="wrapper my-auto ml-auto ml-lg-4">
+											<div className="wrapper my-auto ml-auto ml-lg-3">
 												<Line
 													ref="chart"
 													data={this.state.downloadChartData}

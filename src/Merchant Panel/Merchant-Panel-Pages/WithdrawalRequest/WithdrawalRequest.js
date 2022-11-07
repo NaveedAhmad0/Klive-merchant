@@ -5,10 +5,7 @@ import Modal from "./modal/Modal-withdraw";
 
 function WithdrawalRequest() {
 	const [isOpen, setIsOpen] = useState(false);
-	// this.statusChangedHandler = this.statusChangedHandler.bind(this);
-	// this.addTodo = this.addTodo.bind(this);
-	// this.removeTodo = this.removeTodo.bind(this);
-	// this.inputChangeHandler = this.inputChangeHandler.bind(this);
+	// const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<div>
@@ -23,9 +20,9 @@ function WithdrawalRequest() {
 				<div className="col-xl-3 col-lg-6 col-sm-6 grid-margin-xl-0 grid-margin">
 					<div className="d-flex newboxcss2 shadow-lg">
 						<div className="wrapper">
-							<h4 className="mb-0 font-weight-medium text-primary">
+							<h5 className="mb-0 font-weight-medium text-primary">
 								Available for withdrawal
-							</h4>
+							</h5>
 							<h3 className="mb-0 font-weight-semibold">-17,577,89</h3>
 							<p className="mb-0">USD</p>
 						</div>

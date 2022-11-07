@@ -66,55 +66,61 @@ const Slipverification = () => {
 					<div className="col-md-12 grid-margin">
 						<div className="card">
 							<div className="card-body">
-								<div className="container text-left">
-									<div className="col-12 d-flex">
-										<div className="col-6">Event Code</div>
-										<div className="col-6">{showData.transRef}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">transTime</div>
-										<div className="col-6">{showData.transTime}</div>
-									</div>
-									<div className="col-12  my-5">
-										<div className="col-6 text-primary">RECIEVER DETAILS</div>
-										{/* <div className="col-6">{sahowData.displayName}</div> */}
-										<div className="col-12 d-flex">
-											<div className="col-6">displayName</div>
-											<div className="col-6">{showData.displayName}</div>
-										</div>
-										<div className="col-12 d-flex">
-											<div className="col-6">Reciever account type</div>
-											<div className="col-6">{showData.type}</div>
-										</div>
-									</div>
-									<div className="col-12 my-5">
-										<div className="col-6 text-primary">SENDER DETAILS</div>
-										{/* <div className="col-6">{sahowData.displayName}</div> */}
-										<div className="col-12 d-flex">
-											<div className="col-6">displayName</div>
-											<div className="col-6">{showData.displayNamee}</div>
-										</div>
-										<div className="col-12 d-flex">
-											<div className="col-6">payeeName</div>
-											<div className="col-6">{showData.payeeName}</div>
-										</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">countryCode</div>
-										<div className="col-6">{showData.countryCode}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">Ref1</div>
-										<div className="col-6">{showData.ref1}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">ref2</div>
-										<div className="col-6">{showData.ref2}</div>
-									</div>
-									<div className="col-12 d-flex">
-										<div className="col-6">amount</div>
-										<div className="col-6">{showData.amount}</div>
-									</div>
+								<div className="container">
+									<table className="table table-striped table-bordered">
+										<tbody>
+											<tr>
+												<td>Event Code</td>
+												<td>{showData.transRef}</td>
+											</tr>
+											<tr>
+												<td>transTime</td>
+												<td>{showData.transTime}</td>
+											</tr>
+											<tr>
+												<td colspan="2" className="font-weight-bold">
+													RECEIVER DETAILS :
+												</td>
+											</tr>
+											<tr>
+												<td>displayName</td>
+												<td>{showData.displayName}</td>
+											</tr>
+											<tr>
+												<td>Reciever account type</td>
+												<td>{showData.type}</td>
+											</tr>
+											<tr>
+												<td colspan="2" className="font-weight-bold">
+													SENDER DETAILS:{" "}
+												</td>
+											</tr>
+											<tr>
+												<td>displayName</td>
+												<td>{showData.displayNamee}</td>
+											</tr>
+											<tr>
+												<td>payeeName</td>
+												<td>{showData.payeeName}</td>
+											</tr>
+											<tr>
+												<td>countryCode</td>
+												<td>{showData.countryCode}</td>
+											</tr>
+											<tr>
+												<td>Ref1</td>
+												<td>{showData.ref1}</td>
+											</tr>
+											<tr>
+												<td>Ref2</td>
+												<td>{showData.ref2}</td>
+											</tr>
+											<tr>
+												<td>Amount</td>
+												<td>{showData.amount}</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>

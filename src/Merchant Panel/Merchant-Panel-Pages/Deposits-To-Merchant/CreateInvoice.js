@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import { Link } from "react-router-dom";
 import "./NewInvoice.css";
-
+import DateTimePicker from "react-datetime-picker";
+import moment from "moment";
 function CreateInvoice() {
 	const [email, setEmail] = useState("");
 	const [mobile, setMobile] = useState("");
@@ -11,53 +12,15 @@ function CreateInvoice() {
 	const [billTo, setbillTo] = useState("");
 	const [status, setstatus] = useState("");
 	const [customer, setcustomer] = useState("");
-	const [totalamount, setTotalamount] = useState("");
-	const [itemValues, setItemValues] = useState([
-		{
-			amount: 0,
-			item: "",
-			quantity: 0,
-			totalPrice: 0,
-		},
-	]);
+	const [totalamount, setTotalAmount] = useState({});
+	const [expirydate, setExpirydate] = useState("");
 
 	// const logindetails = { email, password };
 	const merchantId = localStorage.getItem("merchantUid");
 
-	// const navigate = Redirect();
-	let addFormFields = () => {
-		setItemValues([
-			...itemValues,
-			{ amount: 0, item: "", quantity: "", totalPrice: 0 },
-		]);
-	};
-
-	useEffect(() => {
-		const total = itemValues.reduce(
-			(previousValue, currentValue) =>
-				previousValue + Number(currentValue.totalPrice),
-			5
-		);
-		console.log(total);
-		setTotalamount(total);
-	}, [itemValues]);
-
-	// let handleFormChange = (i, e) => {
-	// 	let newFormValues = [...itemValues];
-	// 	newFormValues[i][e.target.name] = e.target.value;
-	// 	newFormValues[i].totalPrice =
-	// 		Number(newFormValues[i].amount) * Number(newFormValues[i].quantity);
-	// 	setItemValues(newFormValues);
-	// 	console.log(newFormValues);
-	// };
-	let handleFormChange = (i, e) => {
-		let newFormValues = [...itemValues];
-		newFormValues[i][e.target.name] = e.target.value;
-		newFormValues[i].totalPrice =
-			Number(newFormValues[i].amount) * Number(newFormValues[i].quantity);
-		setItemValues(newFormValues);
-		console.log(newFormValues);
-	};
+	function handleChange(e) {
+		setExpirydate();
+	}
 	async function onSubmit(event) {
 		event.preventDefault();
 		console.log(
@@ -67,7 +30,7 @@ function CreateInvoice() {
 			billTo,
 			status,
 			customer,
-			itemValues,
+			expirydate,
 			totalamount
 		);
 		// let { item, amount, quantity } = itemValues[0];
@@ -75,7 +38,7 @@ function CreateInvoice() {
 		try {
 			// for (let i = 0; i < itemValues.length; i++) {
 			// }
-			axios
+			await axios
 				.post(
 					`https://backend.klivepay.com/api/merchant/create-invoice?merchantId=${merchantId}`,
 					JSON.stringify({
@@ -85,7 +48,7 @@ function CreateInvoice() {
 						billTo,
 						status,
 						customer,
-						item: itemValues,
+						expirydate: moment(expirydate).format("YYYY-MM-DD hh:mm:ss"),
 						totalamount,
 					}),
 					{
@@ -156,30 +119,8 @@ function CreateInvoice() {
 								<div className="row">
 									<div className="col-4">
 										<h6 className="text-primary">General</h6>
-										<p className="heading">Status :</p>
-										<input
-											type="text"
-											placeholder="Status"
-											onChange={(e) => {
-												setstatus(e.target.value);
-											}}
-											value={status}
-										/>
-
+										<label className="heading">Status :</label>
 										<br />
-										<p className="heading">Customer :</p>
-										<input
-											type="text"
-											placeholder="Customer"
-											onChange={(e) => {
-												setcustomer(e.target.value);
-											}}
-											value={customer}
-										/>
-									</div>
-
-									<div className="col-4">
-										<h6 className="text-primary">Billing</h6>
 										<input
 											type="text"
 											style={{
@@ -191,13 +132,63 @@ function CreateInvoice() {
 												background: "#FFFFFF",
 												border: "1px solid #CBCCD3",
 												borderRadius: "4px",
-												marginTop: "25px",
+												// marginTop: "25px",
+											}}
+											// placeholder="Status"
+											onChange={(e) => {
+												setstatus(e.target.value);
+											}}
+											value={status}
+										/>
+
+										<br />
+										<br />
+										<label className="heading">Customer :</label>
+										<br />
+										<input
+											type="text"
+											style={{
+												boxSizing: "border-box",
+												width: "226px",
+												height: "40px",
+												left: "1124px",
+												top: "674px",
+												background: "#FFFFFF",
+												border: "1px solid #CBCCD3",
+												borderRadius: "4px",
+												// marginTop: "25px",
+											}}
+											// placeholder="Customer"
+											onChange={(e) => {
+												setcustomer(e.target.value);
+											}}
+											value={customer}
+										/>
+									</div>
+
+									<div className="col-4">
+										<h6 className="text-primary">Billing</h6>
+										<label className="heading">From :</label>
+										<br />
+										<input
+											type="text"
+											style={{
+												boxSizing: "border-box",
+												width: "226px",
+												height: "40px",
+												left: "1124px",
+												top: "674px",
+												background: "#FFFFFF",
+												border: "1px solid #CBCCD3",
+												borderRadius: "4px",
+												// marginTop: "25px",
 											}}
 											onChange={(e) => setbillFrom(e.target.value)}
 											value={billFrom}></input>
 										<br />
 										<br />
-										<p className="heading">Email Address :</p>
+										<label className="heading">Email Address :</label>
+										<br />
 										<input
 											type="text"
 											placeholder=""
@@ -216,7 +207,8 @@ function CreateInvoice() {
 											value={email}></input>
 										<br />
 										<br />
-										<p className="heading">Phone Number :</p>
+										<label className="heading">Phone Number :</label>
+										<br />
 										<input
 											type="text"
 											placeholder=""
@@ -236,6 +228,9 @@ function CreateInvoice() {
 									</div>
 									<div className="col-4">
 										<h6 className="text-primary">Address</h6>
+										<label className="heading">To :</label>
+										<br />
+
 										<input
 											type="text"
 											style={{
@@ -247,7 +242,7 @@ function CreateInvoice() {
 												background: "#FFFFFF",
 												border: "1px solid #CBCCD3",
 												borderRadius: "4px",
-												marginTop: "25px",
+												// marginTop: "25px",
 											}}
 											onChange={(e) => setbillTo(e.target.value)}
 											value={billTo}></input>
@@ -263,8 +258,55 @@ function CreateInvoice() {
 				<div className="row">
 					<div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						<div class="card" id="cardmerchant">
-							<div class="card-body">
-								<table class="table" id="tablebodyrow">
+							<div class="card-body ">
+								<div className="d-flex">
+									<div className="col-6">
+										<p className="heading">Total Amount :</p>
+										<input
+											type="number"
+											style={{
+												boxSizing: "border-box",
+												width: "226px",
+												height: "40px",
+												left: "1124px",
+												top: "674px",
+												background: "#FFFFFF",
+												border: "1px solid #CBCCD3",
+												borderRadius: "4px",
+												// marginTop: "25px",
+											}}
+											onChange={(e) => setTotalAmount(parseInt(e.target.value))}
+											value={totalamount}
+										/>
+									</div>
+									<div className="col-6">
+										<p className="heading">QR Expiriy Date :</p>
+										<input
+											type="datetime-local"
+											style={{
+												boxSizing: "border-box",
+												width: "226px",
+												height: "40px",
+												left: "1124px",
+												top: "674px",
+												background: "#FFFFFF",
+												border: "1px solid #CBCCD3",
+												borderRadius: "4px",
+												// marginTop: "25px",
+											}}
+											onChange={(e) => setExpirydate(e.target.value)}
+											value={expirydate}
+										/>
+										{/* <DateTimePicker
+											onChange={(e) => {
+												setExpirydate(e);
+											}}
+											value={expirydate}
+										/> */}
+									</div>
+								</div>
+
+								{/* <table class="table" id="tablebodyrow">
 									<thead>
 										<tr>
 											<th scope="col-2" className="tablenone">
@@ -336,11 +378,11 @@ function CreateInvoice() {
 											</td>
 										</tr>
 									</tbody>
-								</table>
+								</table> */}
 								<div className="buttons">
 									<div>
-										<button
-											onClick={() => addFormFields()}
+										{/* <button
+											// onClick={() => addFormFields()}
 											type="button"
 											class="btn btn-outline-primary">
 											Add items(s)
@@ -353,14 +395,11 @@ function CreateInvoice() {
 										<button type="button" class="btn btn-outline-success">
 											Refund
 										</button>
-										&nbsp;&nbsp;&nbsp;&nbsp;
+										&nbsp;&nbsp;&nbsp;&nbsp; */}
 										<button
 											type="button"
-											class="btn btn-success"
-											onClick={(e) => onSubmit(e)}
-											style={{
-												marginLeft: "10rem",
-											}}>
+											class="btn btn-success mt-5 btn-block"
+											onClick={(e) => onSubmit(e)}>
 											Submit
 										</button>
 									</div>
