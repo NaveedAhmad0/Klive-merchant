@@ -1249,6 +1249,7 @@ const UserProfile = () => {
 														showData.copyOfId = data[0].prefix + data[0].data;
 													});
 											}}
+											// value={showData.copyOfId}
 											className={`form-control ${styles.userInputs}`}
 											placeholder="file"
 										/>

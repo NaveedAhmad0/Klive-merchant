@@ -41,7 +41,7 @@ const ListOfInvoice = () => {
 						for (let i = 0; i < response.data.length; i += 1) {
 							sample.push({
 								id: response.data[i].id,
-								email: response.data[i].email,
+								invoiceRefId: response.data[i].invoiceRefId,
 								QR: (
 									<img
 										src={`data:image/png;base64,${response.data[i].qrImage}`}
@@ -50,9 +50,9 @@ const ListOfInvoice = () => {
 										style={{ borderRadius: "0" }}
 									/>
 								),
-								amount: response.data[i].totalamount + 5,
-								status: response.data[i].email,
-								redemptiondate: response.data[i].email,
+								amount: response.data[i].totalamount,
+								status: response.data[i].status,
+								redemptiondate: response.data[i].invoiceRefId,
 							});
 							setInvoiceRefId(response.data[i].invoiceRefId);
 						}
@@ -79,8 +79,8 @@ const ListOfInvoice = () => {
 			headerClasses: "deal-header",
 		},
 		{
-			dataField: "email",
-			text: "Email",
+			dataField: "invoiceRefId",
+			text: "Invoice Ref Id",
 			classes: "deal-row",
 			headerClasses: "deal-header",
 		},

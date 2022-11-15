@@ -8,23 +8,17 @@ function DepositsToMerchant() {
 	const location = useLocation();
 	const [showData, setShowData] = useState([
 		{
-			email: "",
 			invoiceRefId: "",
 			mobile: "",
-			items: {},
 			billTo: "",
 			billFrom: "",
 			status: "",
-			customer: "",
 			createdAt: "",
 			amount: 0,
-			// notes: "",
-			item: null,
 			quantity: null,
 			totalamount: null,
 			expirydate: null,
 			qrRawData: null,
-			numberOfTimes: null,
 			qrImage: null,
 		},
 	]);
@@ -39,59 +33,20 @@ function DepositsToMerchant() {
 				`https://backend.klivepay.com/api/merchant/invoice-details/${invoiceId}`
 			)
 			.then((res) => {
-				for (let i = 0; i < res.data.length; i++) {
-					setShowData({
-						email: res.data[i].email,
-						invoiceRefId: res.data[i].invoiceRefId,
-						mobile: res.data[i].mobile,
-						billTo: res.data[i].billTo,
-						billFrom: res.data[i].billFrom,
-						status: res.data[i].status,
-						customer: res.data[i].customer,
-						createdAt: res.data[i].createdAt,
-						amount: res.data[i].amount,
-						quantity: res.data[i].quantity,
-						totalamount: res.data[i].totalamount,
-						expirydate: res.data[i].expirydate,
-						qrImage: res.data[i].qrImage,
-						// notes: res.data[i].note,
-					});
-					console.log("DATA IS ", res.data[i]);
-				}
+				setShowData({
+					invoiceRefId: res.data.invoiceRefId,
+					mobile: res.data.mobile,
+					billTo: res.data.billTo,
+					billFrom: res.data.billFrom,
+					status: res.data.status,
+					createdAt: res.data.createdAt,
+					totalamount: res.data.totalamount,
+					expirydate: res.data.expirydate,
+					qrImage: res.data.qrImage,
+					// notes: res.data.note,
+				});
 			});
 	}, []);
-
-	// async function onSubmitNote(event) {
-	// 	event.preventDefault();
-	// 	console.log(note);
-	// 	// let { item, amount, quantity } = itemValues[0];
-	// 	// 44ba3429-c02c-430d-b6e9-2d51f6a2527f
-	// 	try {
-	// 		// for (let i = 0; i < itemValues.length; i++) {
-	// 		// }
-	// 		axios
-	// 			.post(
-	// 				`http://27.131.178.239/api/merchant/add-notes/${invoiceId}`,
-
-	// 				JSON.stringify({
-	// 					note,
-	// 				}),
-	// 				{
-	// 					headers: { "Content-Type": "application/json" },
-	// 					// withCredentials: true,
-	// 				}
-	// 			)
-
-	// 			.then((res) => {
-	// 				console.log(res?.data);
-
-	// 				alert("Note Added");
-	// 			});
-	// 		// }
-	// 	} catch (err) {
-	// 		console.log(err.message);
-	// 	}
-	// }
 
 	return (
 		<>
@@ -118,30 +73,18 @@ function DepositsToMerchant() {
 											<span className="text-muted">{showData.createdAt}</span>
 										</div>
 										<br />
-										<p className="heading ">
-											Status :
-											<span className="text-muted">{showData.status}</span>
-										</p>
-										<br />
-										<p className="heading">
-											Customer :
-											<span className="text-muted">{showData.customer}</span>
-										</p>
 									</div>
 
 									<div className="col">
 										<h6 className="text-primary">Billing</h6>
+										<p>From :</p>
 										<span className="text-center text-muted">
 											{showData.billFrom}
 										</span>
 										<br />
+
 										<br />
-										<p className="heading">Email Address :</p>
-										<span className="text-center text-muted">
-											{showData.email}
-										</span>
-										<br />
-										<br />
+
 										<p className="heading">Phone Number :</p>
 										<span className="text-center text-muted">
 											{showData.mobile}
@@ -149,6 +92,7 @@ function DepositsToMerchant() {
 									</div>
 									<div className="col">
 										<h6 className="text-primary">Address</h6>
+										<p>To :</p>
 										<span className="text-center text-muted">
 											{showData.billTo}
 										</span>
@@ -255,7 +199,7 @@ function DepositsToMerchant() {
 									value={note}
 								/>
 								<div className="footerbuttons">
-									<span className=" d-flex justify-content-between ">
+									<span className=" d-flex justify-content-around">
 										<button
 											type="button"
 											className="btn btn-outline-primary dropdown-toggle"

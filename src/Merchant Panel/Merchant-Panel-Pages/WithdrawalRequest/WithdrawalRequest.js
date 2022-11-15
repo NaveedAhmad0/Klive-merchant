@@ -1,18 +1,166 @@
-import React, { useState } from "react";
+import axios from "axios";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-import MerchantTable from "../../Merchant-Panel-Components/Merchant-Panel-Table/MerchantTable";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
+import React, { useState, useEffect } from "react";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import Modal from "./modal/Modal-withdraw";
+import { useHistory } from "react-router-dom";
+
+const options = {
+	paginationSize: 4,
+	pageStartIndex: 1,
+	alwaysShowAllBtns: true, // Always show next and previous button
+	withFirstAndLast: false, // Hide the going to First and Last page button
+	hideSizePerPage: true, // Hide the sizePerPage dropdown always
+	hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
+
+	showTotal: false,
+
+	disablePageTitle: true,
+};
 
 function WithdrawalRequest() {
+	const history = useHistory();
+
 	const [isOpen, setIsOpen] = useState(false);
-	// const [isOpen, setIsOpen] = useState(false);
+	const [amount, setAmount] = useState(false);
+	const [ittems, setItems] = useState([]);
+	const [invoiceRefId, setInvoiceRefId] = useState("");
+
+	const merchId = localStorage.getItem("merchantUid");
+
+	console.log("items is", ittems);
+	useEffect(() => {
+		const getUserDetails = async () => {
+			try {
+				await axios
+					.get(
+						`https://backend.klivepay.com/api/merchant/list-of-Withdraw-request?merchantId=${merchId}`
+					)
+					.then((response) => {
+						// if (response == 200) {
+
+						const sample = [];
+						for (let i = 0; i < response.data.length; i += 1) {
+							sample.push({
+								id: response.data[i].id,
+								ReferalNumber: response.data[i].ReferalNumber,
+								WithdrawCharges: response.data[i].WithdrawCharges,
+								amount: response.data[i].amount,
+								FinalAmount: response.data[i].FinalAmount,
+								redemptiondate: response.data[i].ReferalNumber,
+							});
+							setInvoiceRefId(response.data[i].invoiceRefId);
+						}
+						console.log("babla", invoiceRefId);
+						setItems(sample);
+						// }
+						// const listItems = response.json();
+					});
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		(async () => await getUserDetails())();
+	}, []);
+
+	const { SearchBar } = Search;
+
+	const columns = [
+		{
+			dataField: "id",
+			text: "Id",
+			sort: true,
+			classes: "deal-row",
+			headerClasses: "deal-header",
+		},
+		{
+			dataField: "ReferalNumber",
+			text: "Referal Number",
+			classes: "deal-row",
+			headerClasses: "deal-header",
+		},
+		{
+			dataField: "WithdrawCharges",
+			text: "Withdraw Charges ",
+			classes: "deal-row-2",
+
+			headerClasses: "deal-header",
+		},
+
+		{
+			dataField: "amount",
+			text: "Amount",
+			classes: "deal-row",
+			headerClasses: "deal-header",
+		},
+		{
+			dataField: "FinalAmount",
+			text: "Final Amount",
+			classes: "deal-row",
+			headerClasses: "deal-header",
+		},
+		{
+			dataField: "View",
+			isDummyField: true,
+			text: "View user",
+			headerClasses: "deal-header",
+			formatter: (cellContent, row) => {
+				return customFunction(cellContent, row);
+			},
+		},
+		// {
+		// 	dataField: "name",
+		// 	isDummyField: true,
+		// 	text: "Edit role",
+		// 	headerClasses: "deal-header",
+		// 	formatter: (cellContent, row) => {
+		// 		return customFunction(cellContent, row);
+		// 	},
+		// },
+	];
+	console.log("list of item", ittems);
+	const customFunction = (cellContent, row) => {
+		return (
+			<h5>
+				{/* <Link to="/admin/getUserProfile"> */}
+				<button
+					href
+					alt="issueimageload"
+					className="btn btn-success"
+					// src={Edit}
+					onClick={() => {
+						// eslint-disable-next-line no-restricted-globals
+						history.push({
+							pathname: "/merchant/ViewWithdrawal",
+						});
+					}}>
+					view
+				</button>
+				{/* </Link> */}
+			</h5>
+		);
+	};
+
+	useEffect(() => {
+		axios
+			.get(
+				`https://backend.klivepay.com/api/merchant/totalAmount?merchantId=${merchId}`
+			)
+			.then((res) => {
+				console.log(res);
+				setAmount(res.data);
+			});
+	}, []);
 
 	return (
 		<div>
 			<div className="row page-title-header">
 				<div className="col-12">
 					<div className="page-header">
-						<h4 className="page-title">Withdrawal Request</h4>
+						<h1 className="text-primary">WITHDRAWAL REQUEST</h1>
 					</div>
 				</div>
 			</div>
@@ -23,7 +171,7 @@ function WithdrawalRequest() {
 							<h5 className="mb-0 font-weight-medium text-primary">
 								Available for withdrawal
 							</h5>
-							<h3 className="mb-0 font-weight-semibold">-17,577,89</h3>
+							<h3 className="mb-0 font-weight-semibold">{amount}</h3>
 							<p className="mb-0">USD</p>
 						</div>
 					</div>
@@ -50,7 +198,50 @@ function WithdrawalRequest() {
 				</div>
 				{isOpen && <Modal setIsOpen={setIsOpen} />}
 			</div>
-			<MerchantTable />
+
+			{/* <MerchantTable /> */}
+
+			<div className="row">
+				<div className="col-md-12">
+					<div className="row">
+						<div className="col-md-12 grid-margin">
+							<div className="card">
+								<div className="card-body">
+									<div className="table-responsive">
+										<ToolkitProvider
+											keyField="id"
+											data={ittems}
+											columns={columns}
+											search>
+											{(props) => (
+												<div>
+													<h3>Input something at below input field:</h3>
+													<SearchBar
+														{...props.searchProps}
+														className="custome-search-field"
+														style={{ color: "white" }}
+														delay={500}
+														placeholder="Search Something!!!"
+													/>
+													<hr />
+													<BootstrapTable
+														{...props.baseProps}
+														headerClasses={{ backgroundColor: "red" }}
+														pagination={paginationFactory(options)}
+													/>
+												</div>
+											)}
+										</ToolkitProvider>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="col-md-4">
+					<div className="row"></div>
+				</div>
+			</div>
 		</div>
 	);
 }

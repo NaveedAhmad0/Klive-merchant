@@ -50,9 +50,9 @@ const MerchantChangePassword = lazy(() =>
 		"../Merchant Panel/Merchant-Panel-Pages/Merchant-Change-Password/UserChangePassword"
 	)
 );
-const GetMerchantProfile = lazy(() =>
+const ViewWithdrawal = lazy(() =>
 	import(
-		"../Merchant Panel/Merchant-Panel-Components/Get user Profile/GetUserProfile"
+		"../Merchant Panel/Merchant-Panel-Pages/WithdrawalRequest/View Withdraw request/ViewWithdrawRqst"
 	)
 );
 
@@ -172,6 +172,8 @@ class AppRoutes extends Component {
 						path="/merchant/withdrawalrequest"
 						component={WithdrawalRequest}
 					/>
+					<Route path="/merchant/ViewWithdrawal" component={ViewWithdrawal} />
+
 					<Route path="/merchant/profile" component={MerchantProfile} />
 
 					{/*---------------------------- ERROR PAGE ------------------ */}

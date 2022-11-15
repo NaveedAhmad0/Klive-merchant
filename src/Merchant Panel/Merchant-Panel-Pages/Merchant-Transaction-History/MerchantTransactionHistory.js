@@ -198,11 +198,17 @@ function MerchantTransactionHistory() {
 															placeholder="Search Something!!!"
 														/>
 														<hr />
-														<BootstrapTable
-															{...props.baseProps}
-															headerClasses={{ backgroundColor: "red" }}
-															pagination={paginationFactory(options)}
-														/>
+														{ittems.length > 0 ? (
+															<BootstrapTable
+																{...props.baseProps}
+																headerClasses={{ backgroundColor: "red" }}
+																pagination={paginationFactory(options)}
+															/>
+														) : (
+															<div className="text-center text-danger">
+																<h4>No Transactoin History</h4>
+															</div>
+														)}
 													</div>
 												)}
 											</ToolkitProvider>
