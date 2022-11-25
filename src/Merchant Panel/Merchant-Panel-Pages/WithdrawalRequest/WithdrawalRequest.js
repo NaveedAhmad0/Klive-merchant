@@ -135,6 +135,7 @@ function WithdrawalRequest() {
 						// eslint-disable-next-line no-restricted-globals
 						history.push({
 							pathname: "/merchant/ViewWithdrawal",
+							state: { Id: row.id },
 						});
 					}}>
 					view
@@ -182,7 +183,7 @@ function WithdrawalRequest() {
 							<h5 className="mb-0 font-weight-medium text-info">
 								Current Balance
 							</h5>
-							<h3 className="mb-0 font-weight-semibold">15,577,62</h3>
+							<h3 className="mb-0 font-weight-semibold">{amount}</h3>
 							<p className="mb-0">USD</p>
 						</div>
 					</div>

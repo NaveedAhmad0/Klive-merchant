@@ -95,15 +95,27 @@ function Register() {
 			return;
 		}
 		try {
-			const response = await axios.post(
-				"https://backend.klivepay.com/api/merchant/register",
-				JSON.stringify({ name, mobile, email, password }),
-				{
-					headers: { "Content-Type": "application/json" },
-					// withCredentials: true
-				}
-			);
-			console.log(response?.data);
+			const response = await axios
+				.post(
+					"https://backend.klivepay.com/api/merchant/register",
+					JSON.stringify({
+						name,
+						mobile,
+						email,
+						password,
+						typeOfStreem: "web",
+					}),
+					{
+						headers: { "Content-Type": "application/json" },
+						// withCredentials: true
+					}
+				)
+				.then((res) => {
+					if (res.status === 201) {
+						alert("User Registered Successfully !");
+					}
+				});
+			console.log(response);
 			// console.log(response?.accessToken);
 			console.log(JSON.stringify(response));
 			setSuccess(true);

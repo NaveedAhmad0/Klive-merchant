@@ -100,7 +100,7 @@ const ListOfInvoice = () => {
 		},
 		{
 			dataField: "status",
-			text: "Status",
+			text: "Payment Status",
 			classes: "deal-row",
 			headerClasses: "deal-header",
 		},

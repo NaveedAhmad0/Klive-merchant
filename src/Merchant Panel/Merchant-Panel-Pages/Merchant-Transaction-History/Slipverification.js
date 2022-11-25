@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 const Slipverification = () => {
+	const location = useLocation();
 	const [showData, setShowData] = useState([
 		{
 			transRef: "",
@@ -21,39 +22,29 @@ const Slipverification = () => {
 		},
 	]);
 
-	const location = useLocation();
-
-	const invoiceId = location.state.invoiceId;
-	const merchId = location.state.merchId;
-
+	const merchId = localStorage.getItem("merchantUid");
+	const slipVerification = location.state.slipVerification;
+	console.log("m", slipVerification);
+	console.log("mer", merchId);
 	useEffect(() => {
 		axios
 			.get(
-				`https://backend.klivepay.com/api/merchant/slipVerification?merchantId=${merchId}&slipVerification=202210273O2brONjCpkC6NaeE`
+				`https://backend.klivepay.com/api/merchant/slipVerification?merchantId=${merchId}&slipVerification=${slipVerification}`
+				// JSON.stringify({slipNumber})
 			)
 			.then((res) => {
-				// console.log("DATA", res.data.data);
-				// for (let i = 0; i < res.data.data.length; i++) {
 				setShowData({
-					transRef: res.data.data.transRef,
-					transTime: res.data.data.transTime,
-					displayName: res.data.data.receiver.displayName,
-					type: res.data.data.receiver.account.type,
-					displayNamee: res.data.data.sender.displayName,
-					payeeName: res.data.data.sender.account.type,
-					countryCode: res.data.data.countryCode,
-					ref2: res.data.data.ref2,
-					ref1: res.data.data.ref1,
-					amount: res.data.data.amount,
-					// transactionId: res.data.data.transactionId,
-					// fastEasySlipNumber: res.data.data.fastEasySlipNumber,
-					// billPaymentRef1: res.data.data.billPaymentRef1,
-					// billPaymentRef2: res.data.data.billPaymentRef2,
-					// billPaymentRef3: res.data.data.billPaymentRef3,
-					// notes: res.data.note,
+					transRef: res.data.transRef,
+					transTime: res.data.transTime,
+					displayName: res.data.receiver.displayName,
+					type: res.data.receiver.account.type,
+					displayNamee: res.data.sender.displayName,
+					payeeName: res.data.sender.account.type,
+					countryCode: res.data.countryCode,
+					ref2: res.data.ref2,
+					ref1: res.data.ref1,
+					amount: res.data.amount,
 				});
-				// console.log("DATA IS ", res.data.data);
-				// }
 			});
 		// console.log("refernceeeeeeee", referece2);
 	}, []);

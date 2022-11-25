@@ -1,8 +1,12 @@
 import axios from "axios";
+import moment from "moment/moment";
 import React, { useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
+import Modal from "./modal/Modal-withdraw";
+
 const TransactionDetails = () => {
 	const history = useHistory();
+	const [isOpen, setIsOpen] = useState(false);
 
 	const [showData, setShowData] = useState([
 		{
@@ -25,16 +29,16 @@ const TransactionDetails = () => {
 
 	const location = useLocation();
 
-	const invoiceId = location.state.invoiceId;
+	const referece1 = location.state.referece1;
 	const referece2 = location.state.referece2;
-	const date = new Date(location.state.date);
-	const merchId = location.state.merchId;
+	const date = moment(location.state.date).format("YYYY-MM-DD");
+	const merchId = localStorage.getItem("merchantUid");
 
 	useEffect(() => {
-		console.log("DAE", date);
+		console.log("DAE", merchId);
 		axios
 			.get(
-				`https://backend.klivepay.com/api/merchant/payment-inquiry?merchantId=${merchId}&date=${date}&reference1=${invoiceId}&reference2=${referece2}`
+				`https://backend.klivepay.com/api/merchant/payment-inquiry?merchantId=${merchId}&date=${date}&reference1=${referece1}&reference2=${referece2}`
 			)
 			.then((res) => {
 				console.log("DATA", res);
@@ -129,27 +133,13 @@ const TransactionDetails = () => {
 												<td>billPaymentRef3</td>
 												<td>{showData.billPaymentRef3}</td>
 											</tr>
-											<tr>
-												<td>billPaymentRef2</td>
-												<td>{showData.billPaymentRef2}</td>
-											</tr>
 										</tbody>
 									</table>
 									<br></br>
 									<button
 										type="button"
 										className="btn btn-primary btn-block"
-										onClick={() => {
-											//eslint-disable-next-line no-restricted-globals
-											history.push({
-												pathname: "/merchant/slip-verification",
-												state: {
-													invoiceId: showData.fastEasySlipNumber,
-													merchId: merchId,
-												},
-											});
-											console.log("sent email", showData.fastEasySlipNumber);
-										}}>
+										onClick={() => setIsOpen(true)}>
 										Slip verification Details
 									</button>
 								</div>
@@ -158,6 +148,7 @@ const TransactionDetails = () => {
 					</div>
 				</div>
 			</div>
+			{isOpen && <Modal setIsOpen={setIsOpen} />}
 			<div className="col-md-4">
 				<div className="row"></div>
 			</div>

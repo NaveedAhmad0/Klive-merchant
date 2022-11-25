@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 const ViewWithdrawal = () => {
+	const location = useLocation();
 	const [showData, setShowData] = useState([
 		{
 			id: 0,
@@ -16,29 +18,32 @@ const ViewWithdrawal = () => {
 			comments: "",
 		},
 	]);
+	const merchantId = location.state.Id;
 
 	useEffect(() => {
 		axios
-			.get(`https://backend.klivepay.com/api/admin/withdraw-request`)
+			.get(
+				`https://backend.klivepay.com/api/merchant/withdraw-request-byId?id=${merchantId}`
+			)
 			.then((res) => {
 				console.log("DATA", res);
-				for (let i = 0; i < res.data.length; i++) {
-					setShowData({
-						id: res.data[i].id,
-						ReferalNumber: res.data[i].ReferalNumber,
-						amount: res.data[i].amount,
-						WithdrawCharges: res.data[i].WithdrawCharges,
-						FinalAmount: res.data[i].FinalAmount,
-						Name: res.data[i].BankDetails.Name,
-						AccountNumber: res.data[i].BankDetails.AccountNumber,
-						IFSCcode: res.data[i].BankDetails.IFSCcode,
-						BankName: res.data[i].BankDetails.BankName,
-						comments: res.data[i].comments,
+				// for (let i = 0; i < res.data.length; i++) {
+				setShowData({
+					id: res.data.result.id,
+					ReferalNumber: res.data.result.ReferalNumber,
+					amount: res.data.result.amount,
+					WithdrawCharges: res.data.result.WithdrawCharges,
+					FinalAmount: res.data.result.FinalAmount,
+					Name: res.data.result.BankDetails.Name,
+					AccountNumber: res.data.result.BankDetails.AccountNumber,
+					IFSCcode: res.data.result.BankDetails.IFSCcode,
+					BankName: res.data.result.BankDetails.BankName,
+					comments: res.data.result.comments,
 
-						// notes: res.data[i].note,
-					});
-				}
-				console.log("DATA IS ", res.data.data);
+					// notes: res.data[i].note,
+				});
+				// }
+				// console.log("DATA IS ", res.data.data);
 			});
 	}, []);
 

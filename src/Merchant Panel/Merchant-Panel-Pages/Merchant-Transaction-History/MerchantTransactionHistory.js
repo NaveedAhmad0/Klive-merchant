@@ -24,17 +24,19 @@ const options = {
 
 function MerchantTransactionHistory() {
 	const history = useHistory();
-
 	const [ittems, setItems] = useState([]);
 	const [invoiceRefId, setInvoiceRefId] = useState("");
+
 	console.log("items is", ittems);
+	const merchantId = localStorage.getItem("merchantUid");
 	const loginMail = localStorage.getItem("email");
+
 	useEffect(() => {
 		const getUserDetails = async () => {
 			try {
 				await axios
 					.get(
-						`https://backend.klivepay.com/api/merchant/sandBox-transactionList?merchantId=012355500806301`
+						`https://backend.klivepay.com/api/merchant/sandBox-transactionList?merchantId=${merchantId}`
 					)
 					.then((response) => {
 						// if (response == 200) {
@@ -50,11 +52,11 @@ function MerchantTransactionHistory() {
 								redemptiondate: response.data.data[i].t_bill_payment_ref1,
 								referece2: response.data.data[i].t_bill_payment_ref2,
 								date: response.data.data[i].t_transaction_dateand_time,
-								merchId: response.data.data[i].t_payee_proxy_id,
+								payeeProxiId: response.data.data[i].t_payee_proxy_id,
 							});
 							setInvoiceRefId(response.data.data[i].t_id);
 						}
-						console.log("babla", response.data.data.length);
+						// console.log("babla", response.data.data.length);
 						setItems(sample);
 						// }
 						// const listItems = response.json();
@@ -136,10 +138,9 @@ function MerchantTransactionHistory() {
 						history.push({
 							pathname: "/merchant/transactionDetails",
 							state: {
-								invoiceId: row.redemptiondate,
+								referece1: row.redemptiondate,
 								referece2: row.referece2,
 								date: row.date,
-								merchId: row.merchId,
 							},
 						});
 						console.log("sent email", row.date);

@@ -1,46 +1,55 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const ResetPassword = () => {
-	const [email, setEmail] = useState("");
+	const history = useHistory();
 	const [newPassword, setNewPassword] = useState("");
+	const [oldPassword, setOldPassword] = useState("");
 	const [success, setSuccess] = useState(false);
+
+	const email = localStorage.getItem("email");
 
 	async function onSubmit(event) {
 		event.preventDefault();
-		console.log(email, newPassword);
 
 		try {
-			const response = await axios.patch(
-				`https://backend.klivepay.com/api/merchant/forget-password?email=${email}`,
-				JSON.stringify({ newPassword }),
-				{
-					headers: { "Content-Type": "application/json" },
-					// withCredentials: true,
-				}
-			);
-
-			console.log("mail", email);
+			const response = await axios
+				.patch(
+					`https://backend.klivepay.com/api/merchant/reset-password?email=${email}`,
+					JSON.stringify({ newPassword, oldPassword }),
+					{
+						headers: { "Content-Type": "application/json" },
+						// withCredentials: true,
+					}
+				)
+				.then((res) => {
+					if (res.data.code === 200) {
+						alert("Password Changed successfully");
+						history.push("/merchant/login");
+					} else {
+						alert(res.data.message);
+					}
+					console.log(res);
+				});
 
 			console.log(JSON.stringify(response?.data));
 
 			// const accessToken = response?.data?.accessToken;
 			// localStorage.setItem("token", response?.data?.accessToken);
-			setEmail("");
+			setOldPassword("");
 			setNewPassword("");
 			setSuccess(true);
 		} catch (err) {
 			console.log(err);
-			console.log(email);
 		}
 		console.log(success);
 	}
-	useEffect(() => {
-		if (success) {
-			alert("You have registered Succesfully!");
-		}
-	}, [success]);
+	// useEffect(() => {
+	// 	if (success) {
+	// 		alert("You have registered Succesfully!");
+	// 	}
+	// }, [success]);
 	return (
 		<div>
 			<div className="d-flex align-items-center auth px-0">
@@ -51,15 +60,14 @@ const ResetPassword = () => {
 							<form className="pt-3">
 								<div className="form-group">
 									<input
-										type="email"
+										type="password"
 										className="form-control form-control-lg"
-										id="exampleInputEmail1"
-										onChange={(e) => setEmail(e.target.value)}
-										value={email}
+										id="password"
 										placeholder="Old Password"
+										onChange={(e) => setOldPassword(e.target.value)}
+										value={oldPassword}
 									/>
 								</div>
-
 								<div className="form-group">
 									<input
 										type="password"
@@ -73,7 +81,7 @@ const ResetPassword = () => {
 
 								<div className="mt-3">
 									<button
-										href="/merchant/login"
+										// href="/merchant/login"
 										onClick={(event) => onSubmit(event)}
 										className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
 										Reset Password

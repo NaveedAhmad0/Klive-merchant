@@ -27,7 +27,7 @@ function CreateInvoice() {
 					}
 				)
 				.then((res) => {
-					console.log(res?.data);
+					console.log(res);
 					alert(res.data.message);
 					setTotalAmount("");
 					setExpirydate("");

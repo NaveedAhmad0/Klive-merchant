@@ -33,6 +33,7 @@ function DepositsToMerchant() {
 				`https://backend.klivepay.com/api/merchant/invoice-details/${invoiceId}`
 			)
 			.then((res) => {
+				console.log(res.data);
 				setShowData({
 					invoiceRefId: res.data.invoiceRefId,
 					mobile: res.data.mobile,
