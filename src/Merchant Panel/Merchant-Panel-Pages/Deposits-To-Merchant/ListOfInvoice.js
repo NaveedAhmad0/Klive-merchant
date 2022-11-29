@@ -6,6 +6,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 
+import ClipLoader from "react-spinners/ClipLoader";
 import { Link, useHistory } from "react-router-dom";
 const options = {
 	paginationSize: 4,
@@ -24,6 +25,7 @@ const ListOfInvoice = () => {
 	const history = useHistory();
 
 	const [ittems, setItems] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const [invoiceRefId, setInvoiceRefId] = useState("");
 	console.log("items is", ittems);
 	const loginMail = localStorage.getItem("email");
@@ -51,13 +53,18 @@ const ListOfInvoice = () => {
 									/>
 								),
 								amount: response.data[i].totalamount,
-								status: response.data[i].status,
+								status:
+									response.data[i].status === true ? "completed" : "pending",
 								redemptiondate: response.data[i].invoiceRefId,
 							});
 							setInvoiceRefId(response.data[i].invoiceRefId);
 						}
 						console.log("babla", invoiceRefId);
 						setItems(sample);
+						setLoading(false);
+						setTimeout(() => {
+							setLoading(false);
+						}, 3000);
 						// }
 						// const listItems = response.json();
 					});
@@ -160,50 +167,55 @@ const ListOfInvoice = () => {
 				</div>
 			</div>
 
-			{/* {ittems.map((item) => (
-				<AdminTable key={item.id} list={item} />
-			))} */}
-			<div className="row">
-				<div className="col-md-12">
-					<div className="row">
-						<div className="col-md-12 grid-margin">
-							<div className="card">
-								<div className="card-body">
-									<div className="table-responsive">
-										<ToolkitProvider
-											keyField="id"
-											data={ittems}
-											columns={columns}
-											search>
-											{(props) => (
-												<div>
-													<h3>Input something at below input field:</h3>
-													<SearchBar
-														{...props.searchProps}
-														className="custome-search-field"
-														style={{ color: "white" }}
-														delay={500}
-														placeholder="Search Something!!!"
-													/>
-													<hr />
-													<BootstrapTable
-														{...props.baseProps}
-														headerClasses={{ backgroundColor: "red" }}
-														pagination={paginationFactory(options)}
-													/>
-												</div>
-											)}
-										</ToolkitProvider>
+			{loading ? (
+				<div className="row" style={{ height: "500px" }}>
+					<div className="col-12 text-center my-auto">
+						<ClipLoader color="#136be0" size={100} speedMultiplier={1} />
+					</div>
+				</div>
+			) : (
+				<div className="row">
+					<div className="col-md-12">
+						<div className="row">
+							<div className="col-md-12 grid-margin">
+								<div className="card">
+									<div className="card-body">
+										<div className="table-responsive">
+											<ToolkitProvider
+												keyField="id"
+												data={ittems}
+												columns={columns}
+												search>
+												{(props) => (
+													<div>
+														<h3>Input something at below input field:</h3>
+														<SearchBar
+															{...props.searchProps}
+															className="custome-search-field"
+															style={{ color: "white" }}
+															delay={500}
+															placeholder="Search Something!!!"
+														/>
+														<hr />
+														<BootstrapTable
+															{...props.baseProps}
+															headerClasses={{ backgroundColor: "red" }}
+															pagination={paginationFactory(options)}
+														/>
+													</div>
+												)}
+											</ToolkitProvider>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<div className="col-md-4">
+						<div className="row"></div>
+					</div>
 				</div>
-				<div className="col-md-4">
-					<div className="row"></div>
-				</div>
-			</div>
+			)}
 		</div>
 	);
 };

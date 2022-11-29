@@ -6,6 +6,7 @@ import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import React, { useState, useEffect } from "react";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import Modal from "./modal/Modal-withdraw";
+import ClipLoader from "react-spinners/ClipLoader";
 import { useHistory } from "react-router-dom";
 
 const options = {
@@ -26,12 +27,13 @@ function WithdrawalRequest() {
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [amount, setAmount] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [ittems, setItems] = useState([]);
 	const [invoiceRefId, setInvoiceRefId] = useState("");
 
 	const merchId = localStorage.getItem("merchantUid");
 
-	console.log("items is", ittems);
+	console.log("items is", merchId);
 	useEffect(() => {
 		const getUserDetails = async () => {
 			try {
@@ -40,24 +42,24 @@ function WithdrawalRequest() {
 						`https://backend.klivepay.com/api/merchant/list-of-Withdraw-request?merchantId=${merchId}`
 					)
 					.then((response) => {
-						// if (response == 200) {
-
 						const sample = [];
 						for (let i = 0; i < response.data.length; i += 1) {
 							sample.push({
 								id: response.data[i].id,
 								ReferalNumber: response.data[i].ReferalNumber,
 								WithdrawCharges: response.data[i].WithdrawCharges,
+								Name: response.data[i].BankDetails.Name,
 								amount: response.data[i].amount,
 								FinalAmount: response.data[i].FinalAmount,
 								redemptiondate: response.data[i].ReferalNumber,
 							});
 							setInvoiceRefId(response.data[i].invoiceRefId);
 						}
-						console.log("babla", invoiceRefId);
+						setLoading(false);
+						setTimeout(() => {
+							setLoading(false);
+						}, 3000);
 						setItems(sample);
-						// }
-						// const listItems = response.json();
 					});
 			} catch (error) {
 				console.log(error);
@@ -74,6 +76,13 @@ function WithdrawalRequest() {
 			text: "Id",
 			sort: true,
 			classes: "deal-row",
+			headerClasses: "deal-header",
+		},
+		{
+			dataField: "Name",
+			text: "Name ",
+			classes: "deal-row-2",
+
 			headerClasses: "deal-header",
 		},
 		{
@@ -151,7 +160,6 @@ function WithdrawalRequest() {
 				`https://backend.klivepay.com/api/merchant/totalAmount?merchantId=${merchId}`
 			)
 			.then((res) => {
-				console.log(res);
 				setAmount(res.data);
 			});
 	}, []);
@@ -165,84 +173,94 @@ function WithdrawalRequest() {
 					</div>
 				</div>
 			</div>
-			<div className="row">
-				<div className="col-xl-3 col-lg-6 col-sm-6 grid-margin-xl-0 grid-margin">
-					<div className="d-flex newboxcss2 shadow-lg">
-						<div className="wrapper">
-							<h5 className="mb-0 font-weight-medium text-primary">
-								Available for withdrawal
-							</h5>
-							<h3 className="mb-0 font-weight-semibold">{amount}</h3>
-							<p className="mb-0">USD</p>
-						</div>
+			{loading ? (
+				<div className="row" style={{ height: "500px" }}>
+					<div className="col-12 text-center my-auto">
+						<ClipLoader color="#136be0" size={100} speedMultiplier={1} />
 					</div>
 				</div>
-				<div className="col-xl-3 col-lg-6 col-sm-6 mt-md-0 mt-4 grid-margin-xl-0 grid-margin ">
-					<div className="d-flex newboxcss2 shadow-lg">
-						<div className="wrapper">
-							<h5 className="mb-0 font-weight-medium text-info">
-								Current Balance
-							</h5>
-							<h3 className="mb-0 font-weight-semibold">{amount}</h3>
-							<p className="mb-0">USD</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div className="row my-3">
-				<div className="col-xl-3 col-lg-6 col-sm-6 grid-margin-xl-0 grid-margin">
-					<button
-						className="btn btn-success btn-lg rounded-pill"
-						onClick={() => setIsOpen(true)}>
-						Request Withdrawal
-					</button>
-				</div>
-				{isOpen && <Modal setIsOpen={setIsOpen} />}
-			</div>
-
-			{/* <MerchantTable /> */}
-
-			<div className="row">
-				<div className="col-md-12">
+			) : (
+				<>
 					<div className="row">
-						<div className="col-md-12 grid-margin">
-							<div className="card">
-								<div className="card-body">
-									<div className="table-responsive">
-										<ToolkitProvider
-											keyField="id"
-											data={ittems}
-											columns={columns}
-											search>
-											{(props) => (
-												<div>
-													<h3>Input something at below input field:</h3>
-													<SearchBar
-														{...props.searchProps}
-														className="custome-search-field"
-														style={{ color: "white" }}
-														delay={500}
-														placeholder="Search Something!!!"
-													/>
-													<hr />
-													<BootstrapTable
-														{...props.baseProps}
-														headerClasses={{ backgroundColor: "red" }}
-														pagination={paginationFactory(options)}
-													/>
-												</div>
-											)}
-										</ToolkitProvider>
-									</div>
+						<div className="col-xl-3 col-lg-6 col-sm-6 grid-margin-xl-0 grid-margin">
+							<div className="d-flex newboxcss2 shadow-lg">
+								<div className="wrapper">
+									<h5 className="mb-0 font-weight-medium text-primary">
+										Available for withdrawal
+									</h5>
+									<h3 className="mb-0 font-weight-semibold">{amount}</h3>
+									<p className="mb-0">USD</p>
+								</div>
+							</div>
+						</div>
+						<div className="col-xl-3 col-lg-6 col-sm-6 mt-md-0 mt-4 grid-margin-xl-0 grid-margin ">
+							<div className="d-flex newboxcss2 shadow-lg">
+								<div className="wrapper">
+									<h5 className="mb-0 font-weight-medium text-info">
+										Current Balance
+									</h5>
+									<h3 className="mb-0 font-weight-semibold">{amount}</h3>
+									<p className="mb-0">USD</p>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div className="col-md-4">
-					<div className="row"></div>
-				</div>
-			</div>
+					<div className="row my-3">
+						<div className="col-xl-3 col-lg-6 col-sm-6 grid-margin-xl-0 grid-margin">
+							<button
+								className="btn btn-success btn-lg rounded-pill"
+								onClick={() => setIsOpen(true)}>
+								Request Withdrawal
+							</button>
+						</div>
+						{isOpen && <Modal setIsOpen={setIsOpen} />}
+					</div>
+
+					{/* <MerchantTable /> */}
+
+					<div className="row">
+						<div className="col-md-12">
+							<div className="row">
+								<div className="col-md-12 grid-margin">
+									<div className="card">
+										<div className="card-body">
+											<div className="table-responsive">
+												<ToolkitProvider
+													keyField="id"
+													data={ittems}
+													columns={columns}
+													search>
+													{(props) => (
+														<div>
+															<h3>Input something at below input field:</h3>
+															<SearchBar
+																{...props.searchProps}
+																className="custome-search-field"
+																style={{ color: "white" }}
+																delay={500}
+																placeholder="Search Something!!!"
+															/>
+															<hr />
+															<BootstrapTable
+																{...props.baseProps}
+																headerClasses={{ backgroundColor: "red" }}
+																pagination={paginationFactory(options)}
+															/>
+														</div>
+													)}
+												</ToolkitProvider>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="col-md-4">
+							<div className="row"></div>
+						</div>
+					</div>
+				</>
+			)}
 		</div>
 	);
 }

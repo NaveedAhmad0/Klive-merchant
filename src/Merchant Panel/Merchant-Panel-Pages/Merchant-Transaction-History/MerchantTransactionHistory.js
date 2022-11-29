@@ -1,14 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-// import AdminTable from "../../Admin-Panel-Components/Admin-Panel-Table/AdminTable";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
-import MerchantForm from "../../Merchant-Panel-Components/Merchant-Panel-Form/Merchant-Form";
-import MerchantTable from "../../Merchant-Panel-Components/Merchant-Panel-Table/MerchantTable";
+import ClipLoader from "react-spinners/ClipLoader";
 
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 const options = {
 	paginationSize: 4,
 	pageStartIndex: 1,
@@ -24,12 +22,12 @@ const options = {
 
 function MerchantTransactionHistory() {
 	const history = useHistory();
+	const [loading, setLoading] = useState(true);
 	const [ittems, setItems] = useState([]);
 	const [invoiceRefId, setInvoiceRefId] = useState("");
 
 	console.log("items is", ittems);
 	const merchantId = localStorage.getItem("merchantUid");
-	const loginMail = localStorage.getItem("email");
 
 	useEffect(() => {
 		const getUserDetails = async () => {
@@ -58,6 +56,10 @@ function MerchantTransactionHistory() {
 						}
 						// console.log("babla", response.data.data.length);
 						setItems(sample);
+						setLoading(false);
+						setTimeout(() => {
+							setLoading(false);
+						}, 3000);
 						// }
 						// const listItems = response.json();
 					});
@@ -162,68 +164,64 @@ function MerchantTransactionHistory() {
 				</div>
 			</div>
 
-			<MerchantForm />
-			<div>
-				{/* <div className="d-flex justify-content-between">
-					<h2 className="text-primary bw-bold">Invoice List</h2>
-					<div>
-						<Link to="/merchant/createinvoice">
-							<button className="btn btn-success">Create Invoice</button>
-						</Link>
+			{/* <MerchantForm /> */}
+			{loading ? (
+				<div className="row" style={{ height: "500px" }}>
+					<div className="col-12 text-center my-auto">
+						<ClipLoader color="#136be0" size={100} speedMultiplier={1} />
 					</div>
-				</div> */}
-
-				{/* {ittems.map((item) => (
-				<AdminTable key={item.id} list={item} />
-			))} */}
-				<div className="row">
-					<div className="col-md-12">
-						<div className="row">
-							<div className="col-md-12 grid-margin">
-								<div className="card">
-									<div className="card-body">
-										<div className="table-responsive">
-											<ToolkitProvider
-												keyField="id"
-												data={ittems}
-												columns={columns}
-												search>
-												{(props) => (
-													<div>
-														<h3>Input something at below input field:</h3>
-														<SearchBar
-															{...props.searchProps}
-															className="custome-search-field"
-															style={{ color: "white" }}
-															delay={500}
-															placeholder="Search Something!!!"
-														/>
-														<hr />
-														{ittems.length > 0 ? (
-															<BootstrapTable
-																{...props.baseProps}
-																headerClasses={{ backgroundColor: "red" }}
-																pagination={paginationFactory(options)}
+				</div>
+			) : (
+				<div>
+					<div className="row">
+						<div className="col-md-12">
+							<div className="row">
+								<div className="col-md-12 grid-margin">
+									<div className="card">
+										<div className="card-body">
+											<div className="table-responsive">
+												<ToolkitProvider
+													keyField="id"
+													data={ittems}
+													columns={columns}
+													search>
+													{(props) => (
+														<div>
+															<h3>Input something at below input field:</h3>
+															<SearchBar
+																{...props.searchProps}
+																className="custome-search-field"
+																style={{ color: "white" }}
+																delay={500}
+																placeholder="Search Something!!!"
 															/>
-														) : (
-															<div className="text-center text-danger">
-																<h4>No Transactoin History</h4>
-															</div>
-														)}
-													</div>
-												)}
-											</ToolkitProvider>
+															<hr />
+															{ittems.length > 0 ? (
+																<BootstrapTable
+																	{...props.baseProps}
+																	headerClasses={{ backgroundColor: "red" }}
+																	pagination={paginationFactory(options)}
+																/>
+															) : (
+																<div className="text-center text-danger">
+																	<h4>No Transactoin History</h4>
+																</div>
+															)}
+														</div>
+													)}
+												</ToolkitProvider>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div className="col-md-4">
-						<div className="row"></div>
+						<div className="col-md-4">
+							<div className="row"></div>
+						</div>
 					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 }

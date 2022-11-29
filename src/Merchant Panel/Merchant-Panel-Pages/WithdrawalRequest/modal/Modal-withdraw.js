@@ -58,7 +58,7 @@ const Modal = ({ setIsOpen }) => {
 			<div className={styles.centered}>
 				<div className={styles.modal}>
 					<div className={styles.modalHeader}>
-						<p className={styles.heading}>Manual Withdrawal Request</p>
+						<p className={styles.heading}> Withdrawal Request</p>
 					</div>
 
 					<div className="col d-flex mt-4 justify-content-center">

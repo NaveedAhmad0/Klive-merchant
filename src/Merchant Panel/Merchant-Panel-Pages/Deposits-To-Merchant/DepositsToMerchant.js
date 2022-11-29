@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "./NewInvoice.css";
+import ClipLoader from "react-spinners/ClipLoader";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 function DepositsToMerchant() {
 	const location = useLocation();
+	const [loading, setLoading] = useState(true);
 	const [showData, setShowData] = useState([
 		{
 			invoiceRefId: "",
@@ -46,6 +48,10 @@ function DepositsToMerchant() {
 					qrImage: res.data.qrImage,
 					// notes: res.data.note,
 				});
+				setLoading(false);
+				setTimeout(() => {
+					setLoading(false);
+				}, 3000);
 			});
 	}, []);
 
@@ -54,57 +60,64 @@ function DepositsToMerchant() {
 			<div className="header">
 				<h3 className="header-title">Your Invoice</h3>
 			</div>
-			<div className="container-fluid">
-				<div className="row">
-					<div className="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-12">
-						<div className="card">
-							<div className="card-body">
-								<div className="d-flex justify-content-between">
-									<h4 className="cardmaintitle">
-										Order {showData.invoiceRefId} Details
-									</h4>
-								</div>
-								<br />
-								<div className="row">
-									<div className="col">
-										<h6 className="text-primary">General</h6>
+			{loading ? (
+				<div className="row" style={{ height: "500px" }}>
+					<div className="col-12 text-center my-auto">
+						<ClipLoader color="#136be0" size={100} speedMultiplier={1} />
+					</div>
+				</div>
+			) : (
+				<div className="container-fluid">
+					<div className="row">
+						<div className="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-12">
+							<div className="card">
+								<div className="card-body">
+									<div className="d-flex justify-content-between">
+										<h4 className="cardmaintitle">
+											Order {showData.invoiceRefId} Details
+										</h4>
+									</div>
+									<br />
+									<div className="row">
+										<div className="col">
+											<h6 className="text-primary">General</h6>
 
-										<div className="Boxes">
-											<p className="heading">Date Created :</p>
-											<span className="text-muted">{showData.createdAt}</span>
+											<div className="Boxes">
+												<p className="heading">Date Created :</p>
+												<span className="text-muted">{showData.createdAt}</span>
+											</div>
+											<br />
 										</div>
-										<br />
-									</div>
 
-									<div className="col">
-										<h6 className="text-primary">Billing</h6>
-										<p>From :</p>
-										<span className="text-center text-muted">
-											{showData.billFrom}
-										</span>
-										<br />
+										<div className="col">
+											<h6 className="text-primary">Billing</h6>
+											<p>From :</p>
+											<span className="text-center text-muted">
+												{showData.billFrom}
+											</span>
+											<br />
 
-										<br />
+											<br />
 
-										<p className="heading">Phone Number :</p>
-										<span className="text-center text-muted">
-											{showData.mobile}
-										</span>
-									</div>
-									<div className="col">
-										<h6 className="text-primary">Address</h6>
-										<p>To :</p>
-										<span className="text-center text-muted">
-											{showData.billTo}
-										</span>
+											<p className="heading">Phone Number :</p>
+											<span className="text-center text-muted">
+												{showData.mobile}
+											</span>
+										</div>
+										<div className="col">
+											<h6 className="text-primary">Address</h6>
+											<p>To :</p>
+											<span className="text-center text-muted">
+												{showData.billTo}
+											</span>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<br />
-						<div className="card" id="cardmerchant">
-							<div className="card-body">
-								{/* <table className="table" id="tablebodyrow">
+							<br />
+							<div className="card" id="cardmerchant">
+								<div className="card-body">
+									{/* <table className="table" id="tablebodyrow">
 									<thead>
 										<tr>
 											<th scope="col" className="tablenone">
@@ -155,77 +168,78 @@ function DepositsToMerchant() {
 										</tr>
 									</tbody>
 								</table> */}
-								<div className="d-flex justify-content-between">
-									<div>
-										<label>Total Amount</label>
-										<br />
-										<p>{showData.totalamount}</p>
-									</div>
-									<div>
-										<label>QR Expiry Date</label>
-										<br />
-										<p>{showData.expirydate}</p>
+									<div className="d-flex justify-content-between">
+										<div>
+											<label>Total Amount</label>
+											<br />
+											<p>{showData.totalamount}</p>
+										</div>
+										<div>
+											<label>QR Expiry Date</label>
+											<br />
+											<p>{showData.expirydate}</p>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					{/* ....Right side Cards.... */}
+						{/* ....Right side Cards.... */}
 
-					<div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
-						<div className="card">
-							<div className="card-header">PayPal Here</div>
-							<div className="qrcode p-3">
-								<img
-									src={`data:image/png;base64,${showData.qrImage}`}
-									alt="QR"
-									width={190}
-								/>
+						<div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+							<div className="card">
+								<div className="card-header">PayPal Here</div>
+								<div className="qrcode p-3">
+									<img
+										src={`data:image/png;base64,${showData.qrImage}`}
+										alt="QR"
+										width={190}
+									/>
+								</div>
 							</div>
-						</div>
-						<br />
+							<br />
 
-						<div className="card">
-							<div className="card-footer">
-								Order Notes
-								<hr></hr>
-								<p>{showData.notes}</p>
-								<hr></hr>
-								<p className="heading">Add Notes :</p>
-								<input
-									type="text"
-									placeholder="Add Note"
-									onChange={(e) => setNote(e.target.value)}
-									value={note}
-								/>
-								<div className="footerbuttons">
-									<span className=" d-flex justify-content-around">
-										<button
-											type="button"
-											className="btn btn-outline-primary dropdown-toggle"
-											data-bs-toggle="dropdown"
-											aria-expanded="false"
-											// style={{ width: "62%", height: "35px" }}
-										>
-											Private Note
-										</button>
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<button
-											type="button"
-											className="btn btn-danger"
-											// onClick={onSubmitNote}
-											// style={{ height: "35px" }}
-										>
-											Add
-										</button>
-									</span>
+							<div className="card">
+								<div className="card-footer">
+									Order Notes
+									<hr></hr>
+									<p>{showData.notes}</p>
+									<hr></hr>
+									<p className="heading">Add Notes :</p>
+									<input
+										type="text"
+										placeholder="Add Note"
+										onChange={(e) => setNote(e.target.value)}
+										value={note}
+									/>
+									<div className="footerbuttons">
+										<span className=" d-flex justify-content-around">
+											<button
+												type="button"
+												className="btn btn-outline-primary dropdown-toggle"
+												data-bs-toggle="dropdown"
+												aria-expanded="false"
+												// style={{ width: "62%", height: "35px" }}
+											>
+												Private Note
+											</button>
+											&nbsp;&nbsp;&nbsp;&nbsp;
+											<button
+												type="button"
+												className="btn btn-danger"
+												// onClick={onSubmitNote}
+												// style={{ height: "35px" }}
+											>
+												Add
+											</button>
+										</span>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			)}
 		</>
 	);
 }

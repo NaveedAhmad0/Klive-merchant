@@ -65,7 +65,7 @@ const Slipverification = () => {
 												<td>{showData.transRef}</td>
 											</tr>
 											<tr>
-												<td>transTime</td>
+												<td>Trans Time</td>
 												<td>{showData.transTime}</td>
 											</tr>
 											<tr>
@@ -74,7 +74,7 @@ const Slipverification = () => {
 												</td>
 											</tr>
 											<tr>
-												<td>displayName</td>
+												<td>Display Name</td>
 												<td>{showData.displayName}</td>
 											</tr>
 											<tr>
@@ -87,15 +87,15 @@ const Slipverification = () => {
 												</td>
 											</tr>
 											<tr>
-												<td>displayName</td>
+												<td>Display Name</td>
 												<td>{showData.displayNamee}</td>
 											</tr>
 											<tr>
-												<td>payeeName</td>
+												<td>Payee Name</td>
 												<td>{showData.payeeName}</td>
 											</tr>
 											<tr>
-												<td>countryCode</td>
+												<td>Country Code</td>
 												<td>{showData.countryCode}</td>
 											</tr>
 											<tr>

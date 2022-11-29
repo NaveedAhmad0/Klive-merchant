@@ -1,12 +1,14 @@
 import axios from "axios";
 import moment from "moment/moment";
 import React, { useEffect, useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Modal from "./modal/Modal-withdraw";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const TransactionDetails = () => {
 	const history = useHistory();
 	const [isOpen, setIsOpen] = useState(false);
+	const [loading, setLoading] = useState(true);
 
 	const [showData, setShowData] = useState([
 		{
@@ -41,7 +43,7 @@ const TransactionDetails = () => {
 				`https://backend.klivepay.com/api/merchant/payment-inquiry?merchantId=${merchId}&date=${date}&reference1=${referece1}&reference2=${referece2}`
 			)
 			.then((res) => {
-				console.log("DATA", res);
+				console.log("DATA", res.data);
 				for (let i = 0; i < res.data.data.length; i++) {
 					setShowData({
 						eventCode: res.data.data[i].eventCode,
@@ -61,6 +63,10 @@ const TransactionDetails = () => {
 						// notes: res.data[i].note,
 					});
 					console.log("DATA IS ", res.data.data);
+					setLoading(false);
+					setTimeout(() => {
+						setLoading(false);
+					}, 3000);
 				}
 			});
 		console.log("refernceeeeeeee", referece2);
@@ -72,79 +78,87 @@ const TransactionDetails = () => {
 				<div className="row">
 					<h2 className="text-primary">Payment Details</h2>
 					<div className="col-md-12 grid-margin">
-						<div className="card">
-							<div className="card-body">
-								<div className="container">
-									<table class="table table-striped table-bordered">
-										<tbody>
-											<tr>
-												<td>Event Code</td>
-												<td>{showData.eventCode}</td>
-											</tr>
-											<tr>
-												<td>transactionType</td>
-												<td>{showData.transactionType}</td>
-											</tr>
-											<tr>
-												<td>payeeProxyId</td>
-												<td>{showData.payeeProxyId}</td>
-											</tr>
-											<tr>
-												<td>payeeProxyType</td>
-												<td>{showData.payeeProxyType}</td>
-											</tr>
-											<tr>
-												<td>payeeAccountNumber</td>
-												<td>{showData.payeeAccountNumber}</td>
-											</tr>
-											<tr>
-												<td>payeeName</td>
-												<td>{showData.payeeName}</td>
-											</tr>
-											<tr>
-												<td>payerAccountNumber</td>
-												<td>{showData.payerAccountNumber}</td>
-											</tr>
-											<tr>
-												<td>payerName</td>
-												<td>{showData.payerName}</td>
-											</tr>
-											<tr>
-												<td>amount</td>
-												<td>{showData.amount}</td>
-											</tr>
-											<tr>
-												<td>transactionId</td>
-												<td>{showData.transactionId}</td>
-											</tr>
-											<tr>
-												<td>fastEasySlipNumber</td>
-												<td>{showData.fastEasySlipNumber}</td>
-											</tr>
-											<tr>
-												<td>billPaymentRef1</td>
-												<td>{showData.billPaymentRef1}</td>
-											</tr>
-											<tr>
-												<td>billPaymentRef2</td>
-												<td>{showData.billPaymentRef2}</td>
-											</tr>
-											<tr>
-												<td>billPaymentRef3</td>
-												<td>{showData.billPaymentRef3}</td>
-											</tr>
-										</tbody>
-									</table>
-									<br></br>
-									<button
-										type="button"
-										className="btn btn-primary btn-block"
-										onClick={() => setIsOpen(true)}>
-										Slip verification Details
-									</button>
+						{loading ? (
+							<div className="row" style={{ height: "500px" }}>
+								<div className="col-12 text-center my-auto">
+									<ClipLoader color="#136be0" size={100} speedMultiplier={1} />
 								</div>
 							</div>
-						</div>
+						) : (
+							<div className="card">
+								<div className="card-body">
+									<div className="container">
+										<table class="table table-striped table-bordered">
+											<tbody>
+												<tr>
+													<td>Event Code</td>
+													<td>{showData.eventCode}</td>
+												</tr>
+												<tr>
+													<td>Transaction Type</td>
+													<td>{showData.transactionType}</td>
+												</tr>
+												<tr>
+													<td>Payee Proxy Id</td>
+													<td>{showData.payeeProxyId}</td>
+												</tr>
+												<tr>
+													<td>Payee Proxy Type</td>
+													<td>{showData.payeeProxyType}</td>
+												</tr>
+												<tr>
+													<td>PayeeAccount Number</td>
+													<td>{showData.payeeAccountNumber}</td>
+												</tr>
+												<tr>
+													<td>Payee Name</td>
+													<td>{showData.payeeName}</td>
+												</tr>
+												<tr>
+													<td>Payer Account Number</td>
+													<td>{showData.payerAccountNumber}</td>
+												</tr>
+												<tr>
+													<td>Payer Name</td>
+													<td>{showData.payerName}</td>
+												</tr>
+												<tr>
+													<td>Amount</td>
+													<td>{showData.amount}</td>
+												</tr>
+												<tr>
+													<td>Transaction Id</td>
+													<td>{showData.transactionId}</td>
+												</tr>
+												<tr>
+													<td>Fast Easy SlipNumber</td>
+													<td>{showData.fastEasySlipNumber}</td>
+												</tr>
+												<tr>
+													<td>Bill Payment Ref1</td>
+													<td>{showData.billPaymentRef1}</td>
+												</tr>
+												<tr>
+													<td>Bill Payment Ref2</td>
+													<td>{showData.billPaymentRef2}</td>
+												</tr>
+												<tr>
+													<td>Bill Payment Ref3</td>
+													<td>{showData.billPaymentRef3}</td>
+												</tr>
+											</tbody>
+										</table>
+										<br></br>
+										<button
+											type="button"
+											className="btn btn-primary btn-block"
+											onClick={() => setIsOpen(true)}>
+											Slip verification Details
+										</button>
+									</div>
+								</div>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

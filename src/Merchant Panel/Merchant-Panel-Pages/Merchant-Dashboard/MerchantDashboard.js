@@ -1160,11 +1160,11 @@ export class UserDashboard extends Component {
 												</svg>
 											</div>
 											<div className="wrapper">
-												<h4 className="mb-0 font-weight-medium text-primary">
+												<h4 className="mb-0 font-weight-medium text-white">
 													Main Account
 												</h4>
 												<h3 className="mb-0 font-weight-semibold">32,451</h3>
-												<p className="mb-0 text-white">+14.00(+0.50%)</p>
+												{/* <p className="mb-0 text-white">+14.00(+0.50%)</p> */}
 											</div>
 										</div>
 									</div>
@@ -1175,7 +1175,7 @@ export class UserDashboard extends Component {
 												<h5 className="mb-0 font-weight-medium text-primary">
 													Impressions
 												</h5>
-												<p className="mb-0 text-muted">+138.97(+0.54%)</p>
+												{/* <p className="mb-0 text-muted">+138.97(+0.54%)</p> */}
 											</div>
 											<div className="wrapper my-auto ml-auto ml-lg-3">
 												<Line
@@ -1197,7 +1197,7 @@ export class UserDashboard extends Component {
 												<h5 className="mb-0 font-weight-medium text-primary">
 													Conversion
 												</h5>
-												<p className="mb-0 text-muted">+57.62(+0.76%)</p>
+												{/* <p className="mb-0 text-muted">+57.62(+0.76%)</p> */}
 											</div>
 											<div className="wrapper my-auto ml-auto ml-lg-3">
 												<Line
@@ -1219,7 +1219,7 @@ export class UserDashboard extends Component {
 												<h5 className="mb-0 font-weight-medium text-primary">
 													Downloads
 												</h5>
-												<p className="mb-0 text-muted">+138.97(+0.54%)</p>
+												{/* <p className="mb-0 text-muted">+138.97(+0.54%)</p> */}
 											</div>
 											<div className="wrapper my-auto ml-auto ml-lg-3">
 												<Line

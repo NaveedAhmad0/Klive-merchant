@@ -144,63 +144,68 @@ const UserProfile = () => {
 		event.preventDefault();
 		if (handleValidation()) {
 			try {
-				const response = await axios.patch(
-					`https://backend.klivepay.com/api/merchant/update-profile?email=${loginemail}`,
-					JSON.stringify({
-						merchantId: showData.merchantId,
-						merchantNameEnglish: showData.merchantNameEnglish,
-						merchantName: showData.merchantName,
-						personType: showData.personType,
-						InitialShop: showData.InitialShop,
-						firstName: showData.firstName,
-						surName: showData.surName,
-						yearOfBirth: showData.yearOfBirth,
-						monthOfBirth: showData.monthOfBirth,
-						dayOfBirth: showData.dayOfBirth,
-						mobile: parseInt(showData.mobile),
-						address: showData.address,
-						province: showData.province,
-						district: showData.district,
-						subDivision: showData.subDivision,
-						pincode: parseInt(showData.pincode),
-						shopType: showData.shopType,
-						creditCard: showData.creditCard,
+				const response = await axios
+					.patch(
+						`https://backend.klivepay.com/api/merchant/update-profile?email=${loginemail}`,
+						JSON.stringify({
+							merchantId: showData.merchantId,
+							merchantNameEnglish: showData.merchantNameEnglish,
+							merchantName: showData.merchantName,
+							personType: showData.personType,
+							InitialShop: showData.InitialShop,
+							firstName: showData.firstName,
+							surName: showData.surName,
+							yearOfBirth: showData.yearOfBirth,
+							monthOfBirth: showData.monthOfBirth,
+							dayOfBirth: showData.dayOfBirth,
+							mobile: parseInt(showData.mobile),
+							address: showData.address,
+							province: showData.province,
+							district: showData.district,
+							subDivision: showData.subDivision,
+							pincode: parseInt(showData.pincode),
+							shopType: showData.shopType,
+							creditCard: showData.creditCard,
 
-						copyOfId: showData.copyOfId,
-						logo: showData.logo,
-						bankBook: showData.bankBook,
-						otherDocument: showData.otherDocument,
-						weChat: showData.weChat,
-						livePayment: showData.livePayment,
-						mobileBanking: showData.mobileBanking,
-						trueWallet: showData.trueWallet,
-						shopeePay: showData.shopeePay,
-						alone: showData.alone,
-						website: showData.website,
-						facebook: showData.facebook,
-						linkedin: showData.linkedin,
-						instagram: showData.instagram,
-						other: showData.other,
-						company: showData.company,
-						bank: showData.bank,
-						bankAccount: parseInt(showData.bankAccount),
-						rnfCode: showData.rnfCode,
-						domestic: showData.domestic,
-						inter: showData.inter,
-						rateQrCode: showData.rateQrCode,
-						rateBarCode: showData.rateBarCode,
-					}),
-					{
-						headers: { "Content-Type": "application/json" },
-						// withCredentials: true,
-					}
-				);
+							copyOfId: showData.copyOfId,
+							logo: showData.logo,
+							bankBook: showData.bankBook,
+							otherDocument: showData.otherDocument,
+							weChat: showData.weChat,
+							livePayment: showData.livePayment,
+							mobileBanking: showData.mobileBanking,
+							trueWallet: showData.trueWallet,
+							shopeePay: showData.shopeePay,
+							alone: showData.alone,
+							website: showData.website,
+							facebook: showData.facebook,
+							linkedin: showData.linkedin,
+							instagram: showData.instagram,
+							other: showData.other,
+							company: showData.company,
+							bank: showData.bank,
+							bankAccount: parseInt(showData.bankAccount),
+							rnfCode: showData.rnfCode,
+							domestic: showData.domestic,
+							inter: showData.inter,
+							rateQrCode: showData.rateQrCode,
+							rateBarCode: showData.rateBarCode,
+						}),
+						{
+							headers: { "Content-Type": "application/json" },
+							// withCredentials: true,
+						}
+					)
+					.then((res) => {
+						if (res.data.code === 200) {
+							alert("Form submitted");
+						}
+					});
 				setSuccess(true);
-				console.log(JSON.stringify(response?.data));
+				console.log("JSON.stringify(", response);
 			} catch (err) {
 				console.log(err);
 			}
-			alert("Form submitted");
 		} else {
 			alert("Form has errors.");
 		}

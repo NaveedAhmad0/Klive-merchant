@@ -5,6 +5,8 @@ import { Dropdown } from "react-bootstrap";
 import { Trans } from "react-i18next";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function MerchantSidebar() {
 	let history = useHistory();
@@ -88,7 +90,13 @@ function MerchantSidebar() {
 		<nav className="sidebar sidebar-offcanvas" id="sidebar">
 			<div className="text-center sidebar-brand-wrapper d-flex align-items-center">
 				<a className="sidebar-brand brand-logo text-white" href="index.html">
-					<h3>Payment Gateway</h3>
+					<h3 className="mt-2">
+						<img
+							className="img-sm "
+							src={require("../../../assets/logo/K Live Pay.png")}
+							alt="profile"
+						/>
+					</h3>
 				</a>
 				<a
 					className="sidebar-brand brand-logo-mini text-white pt-3"
@@ -103,15 +111,17 @@ function MerchantSidebar() {
 							<Dropdown.Toggle className="nav-link user-switch-dropdown-toggler p-0 toggle-arrow-hide bg-transparent border-0 w-100">
 								<div className="d-flex justify-content-between align-items-start">
 									<div className="profile-image">
-										<img
+										{/* <img
 											className="img-xs rounded-circle"
 											src={require("../../../assets/images/faces/face8.jpg")}
 											alt="profile"
-										/>
+										/> */}
+										<FontAwesomeIcon className="fa-2x" icon={faUser} />
+
 										<div className="dot-indicator bg-success"></div>
 									</div>
 									<div className="text-wrapper">
-										<p className="profile-name">{userName}</p>
+										<p className="profile-name mt-2">{userName}</p>
 										{/* <p className="designation">Premium user</p> */}
 									</div>
 								</div>
@@ -220,7 +230,7 @@ function MerchantSidebar() {
 						</ul>
 					</Collapse>
 				</li>
-				<li
+				{/* <li
 					className={
 						isPathActive("/merchant/merchant-user-deposits")
 							? "nav-item active"
@@ -232,7 +242,7 @@ function MerchantSidebar() {
 							<Trans>User Deposits</Trans>
 						</span>
 					</Link>
-				</li>
+				</li> */}
 
 				<li
 					className={
@@ -243,7 +253,7 @@ function MerchantSidebar() {
 					<Link className="nav-link" to="/merchant/transactionhistory">
 						<i className="mdi mdi-television menu-icon"></i>
 						<span className="menu-title">
-							<Trans>Transaction Histories</Trans>
+							<Trans>Transaction History</Trans>
 						</span>
 					</Link>
 				</li>
@@ -257,12 +267,12 @@ function MerchantSidebar() {
 					<Link className="nav-link" to="/merchant/listofinvoice">
 						<i className="mdi mdi-television menu-icon"></i>
 						<span className="menu-title">
-							<Trans>Deposits to Merchant</Trans>
+							<Trans>Deposit to Merchant</Trans>
 						</span>
 					</Link>
 				</li>
 
-				<li
+				{/* <li
 					className={
 						isPathActive("/merchant/withdrawalrequest")
 							? "nav-item active"
@@ -274,7 +284,7 @@ function MerchantSidebar() {
 							<Trans>Reports</Trans>
 						</span>
 					</Link>
-				</li>
+				</li> */}
 
 				<li
 					className={
