@@ -103,7 +103,7 @@ function Register() {
 						mobile,
 						email,
 						password,
-						typeOfstream: "web",
+						typeOfStream: "web",
 					}),
 					{
 						headers: { "Content-Type": "application/json" },

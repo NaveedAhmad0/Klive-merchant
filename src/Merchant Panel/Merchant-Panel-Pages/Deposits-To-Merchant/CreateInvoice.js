@@ -1,14 +1,31 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "./NewInvoice.css";
 import moment from "moment";
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Redirect, useHistory } from "react-router-dom";
+
 function CreateInvoice() {
-	const [mobile, setMobile] = useState("");
+	const [mobile, setMobile] = useState({});
 	const [totalamount, setTotalAmount] = useState({});
 	const [expirydate, setExpirydate] = useState("");
+	const [validMobile, setValidMobile] = useState(false);
+	const [mobileFocus, setMobileFocus] = useState(false);
+	const history = useHistory();
+	const MOBILE_REGEX = /^[0-9]{10}$/;
+
 	const merchantId = localStorage.getItem("merchantUid");
 	console.log(merchantId);
+
+	useEffect(() => {
+		const result = MOBILE_REGEX.test(mobile);
+		console.log(result);
+		console.log(mobile);
+		setValidMobile(result);
+	}, [mobile]);
+
 	async function onSubmit(event) {
 		event.preventDefault();
 		console.log(mobile, expirydate, totalamount);
@@ -32,6 +49,7 @@ function CreateInvoice() {
 					setTotalAmount("");
 					setExpirydate("");
 					setMobile("");
+					history.push("/merchant/listofinvoice");
 				});
 			// }
 		} catch (err) {
@@ -74,11 +92,26 @@ function CreateInvoice() {
 
 									<div className="col-4">
 										<h6 className="text-primary">Billing</h6>
-
-										<label className="heading">Phone Number :</label>
+										<label className="heading">Phone Number :</label> {""}
+										{mobileFocus && validMobile ? (
+											<FontAwesomeIcon
+												icon={faCheck}
+												className={"text-success"}
+											/>
+										) : (
+											""
+										)}
+										{mobileFocus && !validMobile ? (
+											<FontAwesomeIcon
+												icon={faTimes}
+												className={"text-danger"}
+											/>
+										) : (
+											""
+										)}
 										<br />
 										<input
-											type="text"
+											type="number"
 											placeholder=""
 											style={{
 												boxSizing: "border-box",
@@ -92,7 +125,12 @@ function CreateInvoice() {
 												marginTop: "-1px",
 											}}
 											onChange={(e) => setMobile(parseInt(e.target.value))}
-											value={mobile}></input>
+											value={mobile}
+											pattern="[0-9]*"
+											aria-invalid={validMobile ? "false" : "true"}
+											required
+											onFocus={() => setMobileFocus(true)}
+											onBlur={() => setMobileFocus(false)}></input>
 									</div>
 									<div className="col-4">
 										<h6 className="text-primary">Address</h6>
@@ -120,7 +158,9 @@ function CreateInvoice() {
 										<button
 											type="button"
 											class="btn btn-success mt-5 btn-block"
-											onClick={(e) => onSubmit(e)}>
+											onClick={(e) => {
+												onSubmit(e);
+											}}>
 											Submit
 										</button>
 									</div>
