@@ -90,18 +90,18 @@ function MerchantSidebar() {
 		<nav className="sidebar sidebar-offcanvas" id="sidebar">
 			<div className="text-center sidebar-brand-wrapper d-flex align-items-center">
 				<a className="sidebar-brand brand-logo text-white" href="index.html">
-					<h3 className="mt-2">
+					<h4 className="mt-4">
 						<img
-							className="img-sm "
+							// className="img-sm "
 							src={require("../../../assets/logo/K Live Pay.png")}
 							alt="profile"
 						/>
-					</h3>
+					</h4>
 				</a>
 				<a
 					className="sidebar-brand brand-logo-mini text-white pt-3"
 					href="index.html">
-					<h5>Payment Gateway</h5>
+					<h5>KlivePay</h5>
 				</a>
 			</div>
 			<ul className="nav">

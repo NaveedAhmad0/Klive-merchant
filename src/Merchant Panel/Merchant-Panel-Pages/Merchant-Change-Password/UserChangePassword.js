@@ -1,12 +1,14 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 const ResetPassword = () => {
 	const history = useHistory();
 	const [newPassword, setNewPassword] = useState("");
 	const [oldPassword, setOldPassword] = useState("");
 	const [success, setSuccess] = useState(false);
+	const [show, setShow] = useState(false);
 
 	const email = localStorage.getItem("email");
 
@@ -60,17 +62,31 @@ const ResetPassword = () => {
 							<form className="pt-3">
 								<div className="form-group">
 									<input
-										type="password"
+										type={show ? "text" : "password"}
 										className="form-control form-control-lg"
 										id="password"
 										placeholder="Old Password"
 										onChange={(e) => setOldPassword(e.target.value)}
 										value={oldPassword}
 									/>
+									<FontAwesomeIcon
+										style={{
+											position: "absolute",
+											zIndex: "70",
+											right: "70px",
+											top: "115px",
+											// left: "505px",
+											// bottom: "33px",
+										}}
+										onClick={() => {
+											setShow(!show);
+										}}
+										icon={show ? faEye : faEyeSlash}
+									/>
 								</div>
 								<div className="form-group">
 									<input
-										type="password"
+										type={show ? "text" : "password"}
 										className="form-control form-control-lg"
 										id="password"
 										placeholder="New Password"

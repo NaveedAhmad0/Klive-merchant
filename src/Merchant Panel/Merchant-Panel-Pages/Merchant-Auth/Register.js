@@ -7,6 +7,8 @@ import {
 	faCheck,
 	faTimes,
 	faInfoCircle,
+	faEye,
+	faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MerchantLogin from "../Merchant-Auth/Login";
@@ -14,7 +16,7 @@ import MerchantLogin from "../Merchant-Auth/Login";
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
-const MOBILE_REGEX = /^[0-9]{10}$/;
+const MOBILE_REGEX = /^[0-9]{8,}$/;
 
 function Register() {
 	const userRef = useRef();
@@ -46,6 +48,9 @@ function Register() {
 
 	const [errMsg, setErrMsg] = useState("");
 	const [success, setSuccess] = useState(false);
+
+	const [show, setShow] = useState(false);
+	const [show1, setShow1] = useState(false);
 
 	useEffect(() => {
 		userRef.current.focus();
@@ -154,7 +159,7 @@ function Register() {
 										{errMsg}
 									</p> */}
 									<h2 className="text-primary font-weight-bolder mb-5 text-center">
-										Merchant Register
+										Merchant Registeration
 									</h2>
 
 									<div className="row">
@@ -220,7 +225,7 @@ function Register() {
 											<form>
 												<div className="form-group">
 													<label className={`${styles.registerLabel}`}>
-														Mobile Number * {""}
+														Mobile Number (exclude + in country code) * {""}
 														{mobileFocus && validMobile ? (
 															<FontAwesomeIcon
 																icon={faCheck}
@@ -262,7 +267,7 @@ function Register() {
 																	: "offscreen"
 															}>
 															<FontAwesomeIcon icon={faInfoCircle} />
-															must be 10 digits.
+															must be atleast 8 digits.
 														</p>
 													) : (
 														""
@@ -346,7 +351,7 @@ function Register() {
 														)}
 													</label>
 													<input
-														type="password"
+														type={show ? "text" : "password"}
 														id="password"
 														onChange={(e) => setPassword(e.target.value)}
 														value={password}
@@ -357,6 +362,20 @@ function Register() {
 														onBlur={() => setPwdFocus(false)}
 														className={`form-control form-control-lg $ ${styles.registerInputs}`}
 														placeholder="Password"
+													/>
+													<FontAwesomeIcon
+														style={{
+															position: "absolute",
+															zIndex: "70",
+															right: "30px",
+															top: "55px",
+															// left: "505px",
+															// bottom: "33px",
+														}}
+														onClick={() => {
+															setShow(!show);
+														}}
+														icon={show ? faEye : faEyeSlash}
 													/>
 													{pwdFocus && !validPwd ? (
 														<p
@@ -404,7 +423,7 @@ function Register() {
 														)}
 													</label>
 													<input
-														type="password"
+														type={show1 ? "text" : "password"}
 														id="Confirm-password"
 														onChange={(e) => setMatchPwd(e.target.value)}
 														value={matchPwd}
@@ -415,6 +434,20 @@ function Register() {
 														onBlur={() => setMatchFocus(false)}
 														className={`form-control form-control-lg $ ${styles.registerInputs}`}
 														placeholder="Confirm Password"
+													/>
+													<FontAwesomeIcon
+														style={{
+															position: "absolute",
+															zIndex: "70",
+															right: "30px",
+															top: "55px",
+															// left: "505px",
+															// bottom: "33px",
+														}}
+														onClick={() => {
+															setShow1(!show1);
+														}}
+														icon={show1 ? faEye : faEyeSlash}
 													/>
 													{matchFocus && !validMatch ? (
 														<p className="text-danger">
@@ -506,11 +539,20 @@ function Register() {
 											</button>
 										</div>
 									</div>
-									<div className="text-left mt-4 font-weight-light">
-										Already have an account?{" "}
-										<Link to="/merchant/login" className="text-primary">
-											Login
-										</Link>
+									<div className="row">
+										<div className="text-left mt-4 font-weight-light">
+											Already have an account?{" "}
+											<Link to="/merchant/login" className="text-primary">
+												Login
+											</Link>
+										</div>
+										<div className=" font-weight-light">
+											<a
+												className="text-decoration-none"
+												href="https://klivepay.com/">
+												Go Back to Home Page?
+											</a>
+										</div>
 									</div>
 								</div>
 							</div>

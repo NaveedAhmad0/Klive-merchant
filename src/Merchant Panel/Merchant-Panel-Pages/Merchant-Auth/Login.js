@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function AdminLogin() {
 	useEffect(() => {
@@ -11,6 +13,8 @@ function AdminLogin() {
 	const [password, setPassword] = useState("");
 	const [success, setSuccess] = useState(false);
 	const [errMsg, setErrMsg] = useState("");
+	const [show, setShow] = useState(false);
+
 	// const logindetails = { email, password };
 
 	// const navigate = Redirect();
@@ -64,7 +68,11 @@ function AdminLogin() {
 					<div className="col-lg-6 mx-auto">
 						<div className="auth-form-light text-left py-5 px-4 px-sm-5">
 							<div className="brand-logo">
-								<h3 className={!errMsg ? "errMsg" : "text-danger"}>{errMsg}</h3>
+								<h4
+									className={!errMsg ? "errMsg" : "text-danger"}
+									style={{ zIndex: 9999 }}>
+									{errMsg}
+								</h4>
 
 								{/* <img
 									src={require("../../../assets/images/logo.svg")}
@@ -83,14 +91,28 @@ function AdminLogin() {
 										className="h-auto"
 									/>
 								</Form.Group>
-								<Form.Group className="d-flex search-field">
+								<Form.Group className=" search-field">
 									<Form.Control
-										type="password"
+										type={show ? "text" : "password"}
 										placeholder="Password"
 										onChange={(event) => handleChangeone(event)}
 										value={password}
 										size="lg"
 										className="h-auto"
+									/>
+									<FontAwesomeIcon
+										style={{
+											position: "absolute",
+											zIndex: "70",
+											right: "70px",
+											top: "205px",
+											// left: "505px",
+											// bottom: "33px",
+										}}
+										onClick={() => {
+											setShow(!show);
+										}}
+										icon={show ? faEye : faEyeSlash}
 									/>
 								</Form.Group>
 								<div className="mt-3">
@@ -123,7 +145,7 @@ function AdminLogin() {
 								<div className="text-center mt-4 font-weight-light">
 									Don't have an account?{" "}
 									<Link to="/merchant/registration" className="text-primary">
-										Create
+										Sign Up
 									</Link>
 								</div>
 							</Form>
